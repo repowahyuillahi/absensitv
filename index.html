@@ -37,7 +37,6 @@
             justify-content: center;
             flex-direction: column;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
         }
 
         .loader {
@@ -105,7 +104,6 @@
             flex: 1;
             overflow: hidden;
             margin-left: 20px;
-            position: relative;
         }
 
         #infoText {
@@ -117,21 +115,39 @@
         }
 
         @keyframes marquee {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         #infoText span {
             display: inline-block;
             margin-right: 80px;
         }
+
+        .status-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+
+        .status-online {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-offline {
+            background: #dc3545;
+            color: white;
+        }
     </style>
 </head>
 <body>
+
+    <div id="statusIndicator" class="status-indicator status-offline">⚫ Offline</div>
 
     <div id="loadingScreen">
         <div class="loader"></div>
@@ -151,32 +167,43 @@
     </div>
 
     <script>
-        // Default messages
-        let messages = [
-            "SELAMAT DATANG DI TJAHAJA BARU",
-            "LAYANAN TERBAIK UNTUK ANDA",
-            "INFORMASI TERKINI SETIAP HARI",
-            "TERIMA KASIH ATAS KEPERCAYAAN ANDA"
-        ];
+        // **GANTI INI DENGAN WEB APP URL ANDA**
+        const API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+        
+        let messages = [];
 
-        // Load messages from localStorage
-        function loadMessages() {
-            const saved = localStorage.getItem('tjahajaBaru_displayMessages');
-            if (saved) {
-                try {
-                    messages = JSON.parse(saved);
-                } catch(e) {
-                    console.error('Error loading messages:', e);
+        // Load messages from Google Sheets
+        async function loadMessages() {
+            try {
+                const response = await fetch(`${API_URL}?action=getPesan`);
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    messages = result.data;
+                    updateFooterText();
+                    updateStatus(true);
+                } else {
+                    console.error('Error loading messages:', result.message);
+                    updateStatus(false);
                 }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                updateStatus(false);
             }
-            updateFooterText();
         }
 
-        // Update footer text animation
+        // Update footer text
         function updateFooterText() {
             const infoText = document.getElementById('infoText');
             infoText.innerHTML = '';
             
+            if (messages.length === 0) {
+                const span = document.createElement('span');
+                span.textContent = 'Tidak ada informasi saat ini';
+                infoText.appendChild(span);
+                return;
+            }
+
             messages.forEach(message => {
                 if (message.trim()) {
                     const span = document.createElement('span');
@@ -186,12 +213,17 @@
             });
         }
 
-        // Listen for storage changes (real-time update from admin page)
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'tjahajaBaru_displayMessages') {
-                loadMessages();
+        // Update status indicator
+        function updateStatus(isOnline) {
+            const indicator = document.getElementById('statusIndicator');
+            if (isOnline) {
+                indicator.className = 'status-indicator status-online';
+                indicator.textContent = '🟢 Online';
+            } else {
+                indicator.className = 'status-indicator status-offline';
+                indicator.textContent = '🔴 Offline';
             }
-        });
+        }
 
         // Update time display
         function updateTime() {
@@ -221,8 +253,8 @@
         }, 3000);
 
         loadMessages();
+        setInterval(loadMessages, 10000); // Auto refresh every 10 seconds
         setInterval(updateTime, 1000);
-        setInterval(loadMessages, 5000); // Auto refresh every 5 seconds
         updateTime();
     </script>
 </body>
