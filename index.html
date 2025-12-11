@@ -59,7 +59,7 @@
             object-fit: contain;
         }
 
-        /* Status Indicator - Pindah ke kiri bawah */
+        /* Status Indicator */
         .status-indicator {
             position: fixed;
             bottom: clamp(70px, 8vh, 90px);
@@ -115,7 +115,7 @@
             background: #041066;
             color: white;
             text-align: center;
-            padding: clamp(8px, 1.5vh, 14px);
+            padding: clamp(10px, 1.8vh, 16px);
             font-size: clamp(14px, 2vw, 22px);
             font-weight: 600;
             border-radius: 10px 10px 0 0;
@@ -136,48 +136,51 @@
 
         .table-wrapper {
             flex: 1;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             min-height: 0;
         }
 
+        /* TABLE FIXED LAYOUT */
         table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
+            border-collapse: collapse;
+            table-layout: fixed;
         }
 
         table thead {
             background: #041066;
             color: white;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        table th {
-            padding: clamp(10px, 1.8vh, 16px) clamp(8px, 1.2vw, 14px);
-            font-weight: 600;
-            text-align: center;
-            font-size: clamp(12px, 1.6vw, 17px);
-            white-space: nowrap;
-            border-right: 1px solid rgba(255,255,255,0.2);
-            letter-spacing: 0.3px;
-        }
-
-        table th:last-child {
-            border-right: none;
+            display: table;
+            width: 100%;
+            table-layout: fixed;
         }
 
         table tbody {
             display: block;
             overflow-y: auto;
-            max-height: 100%;
+            overflow-x: hidden;
+            max-height: calc(100vh - 400px);
         }
 
-        table thead, table tbody tr {
+        table tbody tr {
             display: table;
             width: 100%;
             table-layout: fixed;
+        }
+
+        table th {
+            padding: clamp(12px, 2vh, 18px) clamp(10px, 1.5vw, 16px);
+            font-weight: 600;
+            text-align: center;
+            font-size: clamp(12px, 1.7vw, 18px);
+            border-right: 1px solid rgba(255,255,255,0.2);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        table th:last-child {
+            border-right: none;
         }
 
         table tbody tr {
@@ -198,12 +201,14 @@
         }
 
         table td {
-            padding: clamp(10px, 1.8vh, 14px) clamp(8px, 1.2vw, 12px);
+            padding: clamp(12px, 2vh, 16px) clamp(10px, 1.5vw, 14px);
             text-align: center;
-            font-size: clamp(11px, 1.5vw, 16px);
+            font-size: clamp(11px, 1.6vw, 17px);
             color: #2d3748;
             font-weight: 500;
             border-right: 1px solid #e8edf7;
+            word-wrap: break-word;
+            overflow: hidden;
         }
 
         table td:last-child {
@@ -213,6 +218,32 @@
         table td:first-child {
             font-weight: 700;
             color: #041066;
+        }
+
+        /* COLUMN WIDTHS - SERAGAM antara thead dan tbody */
+        .out-section table th:nth-child(1),
+        .out-section table td:nth-child(1) {
+            width: 5%;
+        }
+
+        .out-section table th:nth-child(2),
+        .out-section table td:nth-child(2) {
+            width: 23%;
+        }
+
+        .out-section table th:nth-child(3),
+        .out-section table td:nth-child(3) {
+            width: 23%;
+        }
+
+        .out-section table th:nth-child(4),
+        .out-section table td:nth-child(4) {
+            width: 12%;
+        }
+
+        .out-section table th:nth-child(5),
+        .out-section table td:nth-child(5) {
+            width: 37%;
         }
 
         /* Others Section */
@@ -234,6 +265,22 @@
             overflow: hidden;
         }
 
+        /* COLUMN WIDTHS - Others tables */
+        .others-section table th:nth-child(1),
+        .others-section table td:nth-child(1) {
+            width: 12%;
+        }
+
+        .others-section table th:nth-child(2),
+        .others-section table td:nth-child(2) {
+            width: 40%;
+        }
+
+        .others-section table th:nth-child(3),
+        .others-section table td:nth-child(3) {
+            width: 48%;
+        }
+
         /* Footer */
         .footer {
             flex-shrink: 0;
@@ -241,15 +288,15 @@
             color: white;
             display: flex;
             align-items: center;
-            padding: clamp(8px, 1.5vh, 14px) clamp(16px, 2vw, 24px);
-            height: clamp(45px, 6vh, 60px);
+            padding: clamp(10px, 1.8vh, 16px) clamp(16px, 2vw, 24px);
+            height: clamp(48px, 6.5vh, 65px);
             box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
         }
 
         .footer-time {
             min-width: clamp(200px, 28vw, 420px);
             font-weight: 700;
-            font-size: clamp(12px, 1.6vw, 18px);
+            font-size: clamp(12px, 1.7vw, 19px);
             color: #ffd700;
             padding-right: clamp(12px, 2vw, 24px);
             border-right: 2px solid rgba(255,255,255,0.3);
@@ -269,7 +316,7 @@
             display: inline-block;
             white-space: nowrap;
             animation: marquee 35s linear infinite;
-            font-size: clamp(12px, 1.6vw, 18px);
+            font-size: clamp(12px, 1.7vw, 19px);
             font-weight: 500;
             letter-spacing: 0.3px;
         }
@@ -301,18 +348,17 @@
 
         /* Scrollbar Custom */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
         }
 
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
-            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: #041066;
-            border-radius: 4px;
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -367,7 +413,7 @@
             }
 
             table th, table td {
-                padding: 8px 6px;
+                padding: 10px 6px;
                 font-size: 11px;
             }
 
@@ -381,35 +427,51 @@
                 padding: 5px 10px;
                 font-size: 10px;
             }
+
+            /* Mobile column adjustments */
+            .out-section table th:nth-child(1),
+            .out-section table td:nth-child(1) { width: 8%; }
+            
+            .out-section table th:nth-child(2),
+            .out-section table td:nth-child(2) { width: 20%; }
+            
+            .out-section table th:nth-child(3),
+            .out-section table td:nth-child(3) { width: 20%; }
+            
+            .out-section table th:nth-child(4),
+            .out-section table td:nth-child(4) { width: 15%; }
+            
+            .out-section table th:nth-child(5),
+            .out-section table td:nth-child(5) { width: 37%; }
         }
 
         /* Tablet */
         @media (min-width: 769px) and (max-width: 1024px) {
             table th, table td {
-                font-size: 13px;
-                padding: 10px 8px;
+                font-size: 14px;
+                padding: 12px 10px;
             }
         }
 
         /* Landscape Mobile */
         @media (max-height: 500px) and (orientation: landscape) {
             .header {
-                padding: 6px 16px;
+                padding: 8px 16px;
             }
 
             .section-title {
-                padding: 5px;
-                font-size: 12px;
+                padding: 6px;
+                font-size: 13px;
             }
 
             table th, table td {
-                padding: 4px 6px;
-                font-size: 10px;
+                padding: 6px 8px;
+                font-size: 11px;
             }
 
             .footer {
-                padding: 5px 12px;
-                height: 35px;
+                padding: 6px 12px;
+                height: 40px;
             }
         }
     </style>
@@ -434,14 +496,14 @@
             <div class="out-section">
                 <div class="section-title">Out Off Office</div>
                 <div class="table-wrapper">
-                    <table id="outOffOfficeTable">
+                    <table>
                         <thead>
                             <tr>
-                                <th style="width: 5%">NO</th>
-                                <th style="width: 23%">NAMA</th>
-                                <th style="width: 23%">PERUSAHAAN</th>
-                                <th style="width: 12%">JAM PERGI</th>
-                                <th style="width: 37%">TUJUAN</th>
+                                <th>NO</th>
+                                <th>NAMA</th>
+                                <th>PERUSAHAAN</th>
+                                <th>JAM PERGI</th>
+                                <th>TUJUAN</th>
                             </tr>
                         </thead>
                         <tbody id="outOffOfficeBody">
@@ -456,12 +518,12 @@
                 <div class="others-section">
                     <div class="section-title">Others</div>
                     <div class="table-wrapper">
-                        <table id="othersTable1">
+                        <table>
                             <thead>
                                 <tr>
-                                    <th style="width: 12%">No</th>
-                                    <th style="width: 40%">Nama</th>
-                                    <th style="width: 48%">Keterangan</th>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody1">
@@ -474,12 +536,12 @@
                 <div class="others-section">
                     <div class="section-title">Others</div>
                     <div class="table-wrapper">
-                        <table id="othersTable2">
+                        <table>
                             <thead>
                                 <tr>
-                                    <th style="width: 12%">No</th>
-                                    <th style="width: 40%">Nama</th>
-                                    <th style="width: 48%">Keterangan</th>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody2">
