@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Display Absensi Tjahaja Baru</title>
     <style>
         * {
@@ -13,8 +13,8 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: white;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f7fa;
             overflow: hidden;
             height: 100vh;
         }
@@ -24,6 +24,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
+            background: white;
         }
 
         /* Header */
@@ -31,84 +32,99 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(8px, 1.5vh, 20px) clamp(15px, 3vw, 30px);
-            background: white;
-            border-bottom: 2px solid #041066;
+            padding: clamp(12px, 2vh, 24px) clamp(20px, 3vw, 40px);
+            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            color: white;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(4, 16, 102, 0.15);
         }
 
         .date-display {
-            font-size: clamp(14px, 2.5vw, 28px);
-            font-weight: 500;
-            color: #000;
+            font-size: clamp(16px, 2.5vw, 32px);
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.5px;
         }
 
         .logo-text {
-            font-size: clamp(16px, 3vw, 32px);
+            font-size: clamp(18px, 3vw, 36px);
             font-weight: 700;
-            color: #041066;
-            letter-spacing: 2px;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         /* Main Content */
         .content {
             flex: 1;
-            padding: clamp(10px, 2vh, 20px) clamp(10px, 2vw, 30px);
+            padding: clamp(12px, 2vh, 20px) clamp(12px, 2vw, 24px);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             min-height: 0;
+            gap: clamp(12px, 2vh, 20px);
         }
 
-        /* Table Out Off Office */
+        /* Section Title */
         .section-title {
-            background: #041066;
+            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
             color: white;
             text-align: center;
-            padding: clamp(6px, 1.2vh, 12px);
-            font-size: clamp(12px, 2vw, 22px);
-            font-weight: 700;
-            margin-bottom: 0;
+            padding: clamp(8px, 1.5vh, 14px);
+            font-size: clamp(14px, 2vw, 24px);
+            font-weight: 600;
+            border-radius: 12px 12px 0 0;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(4, 16, 102, 0.1);
         }
 
+        /* Out Section */
         .out-section {
             flex: 1;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            margin-bottom: clamp(10px, 2vh, 20px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
         }
 
-        .table-container {
+        .table-wrapper {
             flex: 1;
             overflow: hidden;
             min-height: 0;
+            border-radius: 0 0 12px 12px;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
-            height: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
         table thead {
-            background: #041066;
+            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
             color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         table th {
-            padding: clamp(4px, 1vh, 14px) clamp(4px, 0.8vw, 10px);
-            font-weight: 700;
+            padding: clamp(8px, 1.5vh, 16px) clamp(6px, 1vw, 12px);
+            font-weight: 600;
             text-align: center;
-            border: 1px solid white;
-            font-size: clamp(10px, 1.5vw, 17px);
+            font-size: clamp(11px, 1.5vw, 18px);
             white-space: nowrap;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            letter-spacing: 0.3px;
         }
 
         table tbody {
             display: block;
             overflow-y: auto;
-            max-height: calc(100% - 50px);
+            max-height: 100%;
         }
 
         table thead, table tbody tr {
@@ -117,34 +133,45 @@
             table-layout: fixed;
         }
 
+        table tbody tr {
+            transition: all 0.2s ease;
+        }
+
         table tbody tr:nth-child(odd) {
-            background: #d4e3ff;
+            background: #f8f9fc;
         }
 
         table tbody tr:nth-child(even) {
-            background: #e8f0ff;
+            background: #ffffff;
+        }
+
+        table tbody tr:hover {
+            background: #e8edf7;
+            transform: scale(1.005);
         }
 
         table td {
-            padding: clamp(4px, 1vh, 12px) clamp(4px, 0.8vw, 10px);
+            padding: clamp(8px, 1.5vh, 14px) clamp(6px, 1vw, 12px);
             text-align: center;
-            border: 1px solid #aaa;
-            font-size: clamp(9px, 1.4vw, 16px);
-            color: #000;
+            border-bottom: 1px solid #e8edf7;
+            font-size: clamp(10px, 1.4vw, 17px);
+            color: #2d3748;
             word-wrap: break-word;
+            font-weight: 500;
         }
 
         table td:first-child {
             font-weight: 700;
+            color: #041066;
         }
 
         /* Others Section */
         .others-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: clamp(10px, 2vw, 30px);
+            gap: clamp(12px, 2vw, 24px);
             flex: 0 0 auto;
-            max-height: 30vh;
+            max-height: 28vh;
         }
 
         .others-section {
@@ -152,49 +179,49 @@
             display: flex;
             flex-direction: column;
             min-height: 0;
-        }
-
-        .others-section .table-container {
-            flex: 1;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
         /* Footer */
         .footer {
             flex-shrink: 0;
-            background: #041066;
+            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
             color: white;
             display: flex;
             align-items: center;
-            padding: clamp(6px, 1.2vh, 12px) clamp(10px, 2vw, 20px);
-            height: clamp(35px, 5vh, 55px);
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            padding: clamp(8px, 1.5vh, 14px) clamp(16px, 2vw, 24px);
+            height: clamp(40px, 5.5vh, 60px);
+            box-shadow: 0 -4px 12px rgba(4, 16, 102, 0.15);
         }
 
         .footer-time {
-            min-width: clamp(150px, 25vw, 380px);
+            min-width: clamp(180px, 26vw, 400px);
             font-weight: 700;
-            font-size: clamp(10px, 1.5vw, 17px);
+            font-size: clamp(11px, 1.6vw, 18px);
             color: #ffd700;
-            padding-right: clamp(10px, 2vw, 20px);
+            padding-right: clamp(12px, 2vw, 24px);
             border-right: 2px solid rgba(255,255,255,0.3);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: 0.3px;
         }
 
         .footer-text {
             flex: 1;
             overflow: hidden;
-            margin-left: clamp(10px, 2vw, 20px);
+            margin-left: clamp(12px, 2vw, 24px);
         }
 
         .footer-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 30s linear infinite;
-            font-size: clamp(10px, 1.5vw, 17px);
+            animation: marquee 35s linear infinite;
+            font-size: clamp(11px, 1.6vw, 18px);
             font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         @keyframes marquee {
@@ -204,39 +231,52 @@
 
         .footer-marquee span {
             display: inline-block;
-            margin-right: clamp(40px, 8vw, 100px);
+            margin-right: clamp(50px, 10vw, 120px);
         }
 
         /* Empty state */
-        .empty-row {
-            background: #e8f0ff !important;
+        .empty-row td {
+            color: #cbd5e0 !important;
+            font-style: italic;
         }
 
         /* Loading */
         .loading {
             text-align: center;
-            padding: clamp(10px, 2vh, 20px);
-            color: #666;
+            padding: clamp(12px, 2vh, 24px);
+            color: #718096;
             font-style: italic;
-            font-size: clamp(10px, 1.5vw, 14px);
+            font-size: clamp(11px, 1.5vw, 15px);
         }
 
         /* Status Indicator */
-        .status-dot {
+        .status-indicator {
             position: fixed;
-            top: clamp(8px, 1.5vh, 20px);
-            right: clamp(8px, 1.5vw, 20px);
-            width: clamp(10px, 1.2vw, 15px);
-            height: clamp(10px, 1.2vw, 15px);
+            top: clamp(12px, 2vh, 24px);
+            right: clamp(12px, 2vw, 24px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            font-size: clamp(11px, 1.2vw, 14px);
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: clamp(8px, 1vw, 12px);
+            height: clamp(8px, 1vw, 12px);
             border-radius: 50%;
             background: #dc3545;
             animation: blink 2s infinite;
-            z-index: 1000;
         }
 
         .status-dot.online {
             background: #28a745;
-            animation: none;
+            animation: pulse 2s infinite;
         }
 
         @keyframes blink {
@@ -244,56 +284,63 @@
             25%, 75% { opacity: 0.3; }
         }
 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
         /* Scrollbar Custom */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #f1f5f9;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 3px;
+            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: linear-gradient(135deg, #030d4d 0%, #0626a8 100%);
         }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
                 text-align: center;
+                padding: 12px 16px;
             }
 
             .date-display, .logo-text {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .others-container {
                 grid-template-columns: 1fr;
-                max-height: 25vh;
+                max-height: 22vh;
             }
 
             .footer {
                 flex-direction: column;
                 height: auto;
-                padding: 8px 10px;
+                padding: 10px 12px;
+                gap: 8px;
             }
 
             .footer-time {
                 border-right: none;
                 border-bottom: 1px solid rgba(255,255,255,0.3);
-                padding-bottom: 6px;
-                margin-bottom: 6px;
+                padding-bottom: 8px;
                 min-width: 100%;
                 text-align: center;
-                font-size: 12px;
+                font-size: 13px;
             }
 
             .footer-text {
@@ -302,97 +349,67 @@
             }
 
             .footer-marquee {
-                font-size: 12px;
-            }
-
-            table th, table td {
-                padding: 6px 4px;
-                font-size: 11px;
-            }
-
-            .section-title {
-                font-size: 14px;
-            }
-
-            /* Adjust column widths for mobile */
-            .out-section table th:nth-child(1),
-            .out-section table td:nth-child(1) { width: 8%; }
-            .out-section table th:nth-child(2),
-            .out-section table td:nth-child(2) { width: 22%; }
-            .out-section table th:nth-child(3),
-            .out-section table td:nth-child(3) { width: 22%; }
-            .out-section table th:nth-child(4),
-            .out-section table td:nth-child(4) { width: 15%; }
-            .out-section table th:nth-child(5),
-            .out-section table td:nth-child(5) { width: 33%; }
-        }
-
-        /* Tablet Adjustments */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .date-display {
-                font-size: 20px;
-            }
-
-            .logo-text {
-                font-size: 24px;
-            }
-
-            table th, table td {
                 font-size: 13px;
+            }
+
+            table th, table td {
                 padding: 8px 6px;
+                font-size: 12px;
             }
 
             .section-title {
                 font-size: 16px;
             }
+
+            .status-indicator {
+                top: 8px;
+                right: 8px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
         }
 
-        /* Large Desktop */
-        @media (min-width: 1920px) {
-            .content {
-                max-width: 1800px;
-                margin: 0 auto;
+        /* Tablet Adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            table th, table td {
+                font-size: 14px;
+                padding: 10px 8px;
             }
         }
 
         /* Landscape Mobile */
         @media (max-height: 500px) and (orientation: landscape) {
             .header {
-                padding: 5px 15px;
-            }
-
-            .date-display, .logo-text {
-                font-size: 14px;
+                padding: 6px 16px;
             }
 
             .section-title {
-                padding: 4px;
-                font-size: 12px;
+                padding: 6px;
+                font-size: 13px;
             }
 
             .others-container {
-                max-height: 35vh;
+                max-height: 32vh;
             }
 
             table th, table td {
-                padding: 3px 4px;
-                font-size: 10px;
+                padding: 4px 6px;
+                font-size: 11px;
             }
 
             .footer {
-                padding: 4px 10px;
-                height: 30px;
-            }
-
-            .footer-time, .footer-marquee {
-                font-size: 11px;
+                padding: 6px 12px;
+                height: 35px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="status-dot" id="statusDot"></div>
+    <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Offline</span>
+    </div>
 
     <div class="container">
         <div class="header">
@@ -404,15 +421,15 @@
             <!-- Out Off Office Table -->
             <div class="out-section">
                 <div class="section-title">Out Off Office</div>
-                <div class="table-container">
+                <div class="table-wrapper">
                     <table id="outOffOfficeTable">
                         <thead>
                             <tr>
                                 <th style="width: 5%">NO</th>
-                                <th style="width: 20%">NAMA</th>
+                                <th style="width: 22%">NAMA</th>
                                 <th style="width: 20%">PERUSAHAAN</th>
                                 <th style="width: 12%">JAM PERGI</th>
-                                <th style="width: 43%">TUJUAN</th>
+                                <th style="width: 41%">TUJUAN</th>
                             </tr>
                         </thead>
                         <tbody id="outOffOfficeBody">
@@ -426,13 +443,13 @@
             <div class="others-container">
                 <div class="others-section">
                     <div class="section-title">Others</div>
-                    <div class="table-container">
+                    <div class="table-wrapper">
                         <table id="othersTable1">
                             <thead>
                                 <tr>
                                     <th style="width: 15%">No</th>
-                                    <th style="width: 45%">Nama</th>
-                                    <th style="width: 40%">Keterangan</th>
+                                    <th style="width: 42%">Nama</th>
+                                    <th style="width: 43%">Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody1">
@@ -444,13 +461,13 @@
 
                 <div class="others-section">
                     <div class="section-title">Others</div>
-                    <div class="table-container">
+                    <div class="table-wrapper">
                         <table id="othersTable2">
                             <thead>
                                 <tr>
                                     <th style="width: 15%">No</th>
-                                    <th style="width: 45%">Nama</th>
-                                    <th style="width: 40%">Keterangan</th>
+                                    <th style="width: 42%">Nama</th>
+                                    <th style="width: 43%">Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody2">
@@ -474,7 +491,7 @@
         // **WEB APP URL**
         const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
-        // Load Out Off Office data
+        // Load Out Off Office data - SUPPORT UNLIMITED DATA
         async function loadOutOffOffice() {
             try {
                 const today = new Date().toISOString().split('T')[0];
@@ -485,6 +502,7 @@
                 tbody.innerHTML = '';
 
                 if (result.status === 'success' && result.data.length > 0) {
+                    // TAMPILKAN SEMUA DATA (tidak ada batasan)
                     result.data.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -496,33 +514,17 @@
                         `;
                         tbody.appendChild(tr);
                     });
-
-                    // Fill empty rows up to 15 (adjusted for better fit)
-                    const maxRows = window.innerHeight > 900 ? 21 : 15;
-                    for (let i = result.data.length; i < maxRows; i++) {
-                        const tr = document.createElement('tr');
-                        tr.className = 'empty-row';
-                        tr.innerHTML = `
-                            <td>${i + 1}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        `;
-                        tbody.appendChild(tr);
-                    }
                 } else {
-                    // All empty rows
-                    const maxRows = window.innerHeight > 900 ? 21 : 15;
-                    for (let i = 0; i < maxRows; i++) {
+                    // Tampilkan beberapa baris kosong untuk estetika
+                    for (let i = 0; i < 5; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
                         tr.innerHTML = `
                             <td>${i + 1}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
                         `;
                         tbody.appendChild(tr);
                     }
@@ -546,11 +548,11 @@
                 tbody1.innerHTML = '';
                 tbody2.innerHTML = '';
 
-                if (result.status === 'success') {
+                if (result.status === 'success' && result.data.length > 0) {
                     const data = result.data;
-                    const half = 5;
+                    const half = Math.ceil(data.length / 2);
                     const firstHalf = data.slice(0, half);
-                    const secondHalf = data.slice(half, half * 2);
+                    const secondHalf = data.slice(half);
 
                     // First column
                     firstHalf.forEach((item, index) => {
@@ -563,31 +565,48 @@
                         tbody1.appendChild(tr);
                     });
 
-                    // Fill empty rows for first column
-                    for (let i = firstHalf.length; i < 5; i++) {
-                        const tr = document.createElement('tr');
-                        tr.className = 'empty-row';
-                        tr.innerHTML = `<td>${i + 1}</td><td></td><td></td>`;
-                        tbody1.appendChild(tr);
+                    // Fill empty if needed
+                    if (firstHalf.length === 0) {
+                        for (let i = 0; i < 3; i++) {
+                            const tr = document.createElement('tr');
+                            tr.className = 'empty-row';
+                            tr.innerHTML = `<td>${i + 1}</td><td>-</td><td>-</td>`;
+                            tbody1.appendChild(tr);
+                        }
                     }
 
                     // Second column
                     secondHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>${index + 6}</td>
+                            <td>${index + half + 1}</td>
                             <td>${item.nama}</td>
                             <td>${item.keterangan}</td>
                         `;
                         tbody2.appendChild(tr);
                     });
 
-                    // Fill empty rows for second column
-                    for (let i = secondHalf.length; i < 5; i++) {
-                        const tr = document.createElement('tr');
-                        tr.className = 'empty-row';
-                        tr.innerHTML = `<td>${i + 6}</td><td></td><td></td>`;
-                        tbody2.appendChild(tr);
+                    // Fill empty if needed
+                    if (secondHalf.length === 0) {
+                        for (let i = 0; i < 3; i++) {
+                            const tr = document.createElement('tr');
+                            tr.className = 'empty-row';
+                            tr.innerHTML = `<td>${i + half + 1}</td><td>-</td><td>-</td>`;
+                            tbody2.appendChild(tr);
+                        }
+                    }
+                } else {
+                    // Empty state for both columns
+                    for (let i = 0; i < 3; i++) {
+                        const tr1 = document.createElement('tr');
+                        tr1.className = 'empty-row';
+                        tr1.innerHTML = `<td>${i + 1}</td><td>-</td><td>-</td>`;
+                        tbody1.appendChild(tr1);
+
+                        const tr2 = document.createElement('tr');
+                        tr2.className = 'empty-row';
+                        tr2.innerHTML = `<td>${i + 6}</td><td>-</td><td>-</td>`;
+                        tbody2.appendChild(tr2);
                     }
                 }
 
@@ -615,7 +634,7 @@
                     });
                 } else {
                     const span = document.createElement('span');
-                    span.textContent = 'Sehat sehat semuanya';
+                    span.textContent = 'Selamat beraktivitas, tetap semangat dan jaga kesehatan';
                     marquee.appendChild(span);
                 }
 
@@ -629,10 +648,15 @@
         // Update status indicator
         function updateStatus(isOnline) {
             const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
             if (isOnline) {
                 dot.classList.add('online');
+                text.textContent = 'Online';
+                text.style.color = '#28a745';
             } else {
                 dot.classList.remove('online');
+                text.textContent = 'Offline';
+                text.style.color = '#dc3545';
             }
         }
 
