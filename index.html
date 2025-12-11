@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>Display Informasi Digital Tjahaja Baru</title>
+    <title>Display Absensi Tjahaja Baru</title>
     <style>
         * {
             margin: 0;
@@ -14,103 +14,149 @@
 
         body {
             font-family: 'Roboto', sans-serif;
+            background: white;
             overflow: hidden;
         }
 
-        #slidesFrame {
-            width: 100%;
-            height: calc(100vh - 45px);
-            border: none;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-        }
-
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .container {
             width: 100%;
             height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
-            align-items: center;
-            justify-content: center;
             flex-direction: column;
-            z-index: 9999;
         }
 
-        .loader {
-            width: 50px;
-            aspect-ratio: 1;
-            --c: linear-gradient(#fff 0 0);
-            --m: radial-gradient(farthest-side, #fff 92%, #0000);
-            background: 
-                var(--c), var(--m),
-                var(--c), var(--m), 
-                var(--c), var(--m);
-            background-size: 10px 15px, 10px 10px;
-            background-repeat: no-repeat;
-            animation: l17 1s infinite linear;
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: white;
+            border-bottom: 2px solid #041066;
         }
 
-        @keyframes l17 {
-            0%, 5% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% 50%, 100% 0}
-            12.5% {background-position: 0 50%, 0 calc(50% - 10px), 50% 50%, 50% 0, 100% 50%, 100% 0}
-            25% {background-position: 0 calc(50% + 10px), 0 50%, 50% 50%, 50% 0, 100% 50%, 100% 0}
-            37.5% {background-position: 0 calc(50% + 10px), 0 50%, 50% 50%, 50% calc(50% - 10px), 100% 50%, 100% 0}
-            50% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% 50%, 100% 0}
-            62.5% {background-position: 0 50%, 0 0, 50% calc(50% + 10px), 50% 50%, 100% 50%, 100% calc(50% - 10px)}
-            75% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% calc(50% + 10px), 100% 50%}
-            87.5% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% calc(50% + 10px), 100% 50%}
-            95%, 100% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% 50%, 100% 0}
+        .date-display {
+            font-size: 28px;
+            font-weight: 500;
+            color: #000;
         }
 
-        .title {
+        .logo-text {
+            font-size: 32px;
             font-weight: 700;
-            font-size: 42px;
-            color: #ffffff;
-            margin-top: 25px;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #041066;
+            letter-spacing: 2px;
         }
 
-        #footer {
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 0 30px 30px 30px;
+            overflow-y: auto;
+        }
+
+        /* Table Out Off Office */
+        .section-title {
+            background: #041066;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        table thead {
+            background: #041066;
+            color: white;
+        }
+
+        table th {
+            padding: 14px 10px;
+            font-weight: 700;
+            text-align: center;
+            border: 1px solid white;
+            font-size: 17px;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background: #d4e3ff;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #e8f0ff;
+        }
+
+        table td {
+            padding: 12px 10px;
+            text-align: center;
+            border: 1px solid #aaa;
+            font-size: 16px;
+            color: #000;
+        }
+
+        table td:first-child {
+            font-weight: 700;
+        }
+
+        /* Others Section */
+        .others-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .others-section {
+            background: white;
+        }
+
+        .others-section table {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #041066 0%, #0520a8 100%);
-            color: #ffffff;
+            background: #041066;
+            color: white;
             display: flex;
             align-items: center;
-            overflow: hidden;
-            padding: 8px 15px;
-            height: 45px;
+            padding: 12px 20px;
+            height: 55px;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
-            z-index: 100;
         }
 
-        #timeDisplay {
-            min-width: 300px;
+        .footer-time {
+            min-width: 380px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 17px;
             color: #ffd700;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             padding-right: 20px;
             border-right: 2px solid rgba(255,255,255,0.3);
         }
 
-        #infoTextContainer {
+        .footer-text {
             flex: 1;
             overflow: hidden;
             margin-left: 20px;
         }
 
-        #infoText {
+        .footer-marquee {
             display: inline-block;
             white-space: nowrap;
             animation: marquee 30s linear infinite;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 500;
         }
 
@@ -119,143 +165,321 @@
             100% { transform: translateX(-100%); }
         }
 
-        #infoText span {
+        .footer-marquee span {
             display: inline-block;
-            margin-right: 80px;
+            margin-right: 100px;
         }
 
-        .status-indicator {
+        /* Empty state */
+        .empty-row {
+            background: #e8f0ff !important;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Status Indicator */
+        .status-dot {
             position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
+            top: 20px;
+            right: 20px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #dc3545;
+            animation: blink 2s infinite;
             z-index: 1000;
         }
 
-        .status-online {
+        .status-dot.online {
             background: #28a745;
-            color: white;
+            animation: none;
         }
 
-        .status-offline {
-            background: #dc3545;
-            color: white;
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
         }
     </style>
 </head>
 <body>
 
-    <div id="statusIndicator" class="status-indicator status-offline">⚫ Offline</div>
+    <div class="status-dot" id="statusDot"></div>
 
-    <div id="loadingScreen">
-        <div class="loader"></div>
-        <div class="title">TJAHAJA BARU</div>
-    </div>
+    <div class="container">
+        <div class="header">
+            <div class="date-display" id="dateDisplay">Kamis, 11 Desember 2025</div>
+            <div class="logo-text">TJAHAJA BARU</div>
+        </div>
 
-    <iframe id="slidesFrame" 
-            src="https://docs.google.com/presentation/d/e/2PACX-1vSQ38LjFgAHXbNbfC4gkaOTJsLCCny4BZhxZ3ttF_mD74Onq800eqQhN7pqHnr6fgexDu8dSJv1Fl1d/embed?start=true&loop=true&delayms=30000" 
-            allowfullscreen="true">
-    </iframe>
+        <div class="content">
+            <!-- Out Off Office Table -->
+            <div class="section-title">Out Off Office</div>
+            <table id="outOffOfficeTable">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">NO</th>
+                        <th style="width: 20%">NAMA</th>
+                        <th style="width: 20%">PERUSAHAAN</th>
+                        <th style="width: 12%">JAM PERGI</th>
+                        <th style="width: 43%">TUJUAN</th>
+                    </tr>
+                </thead>
+                <tbody id="outOffOfficeBody">
+                    <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                </tbody>
+            </table>
 
-    <div id="footer">
-        <div id="timeDisplay">00:00:00</div>
-        <div id="infoTextContainer">
-            <div id="infoText"></div>
+            <!-- Others Section -->
+            <div class="others-container">
+                <div class="others-section">
+                    <div class="section-title">Others</div>
+                    <table id="othersTable1">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%">No</th>
+                                <th style="width: 45%">Nama</th>
+                                <th style="width: 40%">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="othersBody1">
+                            <tr class="loading"><td colspan="3">Memuat data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="others-section">
+                    <div class="section-title">Others</div>
+                    <table id="othersTable2">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%">No</th>
+                                <th style="width: 45%">Nama</th>
+                                <th style="width: 40%">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="othersBody2">
+                            <tr class="loading"><td colspan="3">Memuat data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-time" id="footerTime">00:00:00</div>
+            <div class="footer-text">
+                <div class="footer-marquee" id="footerMarquee"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // **GANTI INI DENGAN WEB APP URL ANDA**
-        const API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-        
-        let messages = [];
+        // **GANTI DENGAN WEB APP URL ANDA**
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
-        // Load messages from Google Sheets
+        // Load Out Off Office data
+        async function loadOutOffOffice() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const response = await fetch(`${API_URL}?action=getOutOffOffice&tanggal=${today}`);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('outOffOfficeBody');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach((item, index) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.nama}</td>
+                            <td>${item.perusahaan}</td>
+                            <td>${item.jam_pergi}</td>
+                            <td>${item.tujuan}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    // Fill empty rows up to 21
+                    for (let i = result.data.length; i < 21; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `
+                            <td>${i + 1}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                } else {
+                    // All empty rows
+                    for (let i = 0; i < 21; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `
+                            <td>${i + 1}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                }
+
+                updateStatus(true);
+            } catch (error) {
+                console.error('Error loading Out Off Office:', error);
+                updateStatus(false);
+            }
+        }
+
+        // Load Others data
+        async function loadOthers() {
+            try {
+                const response = await fetch(`${API_URL}?action=getOthers`);
+                const result = await response.json();
+                
+                const tbody1 = document.getElementById('othersBody1');
+                const tbody2 = document.getElementById('othersBody2');
+                tbody1.innerHTML = '';
+                tbody2.innerHTML = '';
+
+                if (result.status === 'success') {
+                    const data = result.data;
+                    const half = 5;
+                    const firstHalf = data.slice(0, half);
+                    const secondHalf = data.slice(half, half * 2);
+
+                    // First column
+                    firstHalf.forEach((item, index) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.nama}</td>
+                            <td>${item.keterangan}</td>
+                        `;
+                        tbody1.appendChild(tr);
+                    });
+
+                    // Fill empty rows for first column
+                    for (let i = firstHalf.length; i < 5; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `<td>${i + 1}</td><td></td><td></td>`;
+                        tbody1.appendChild(tr);
+                    }
+
+                    // Second column
+                    secondHalf.forEach((item, index) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${index + 6}</td>
+                            <td>${item.nama}</td>
+                            <td>${item.keterangan}</td>
+                        `;
+                        tbody2.appendChild(tr);
+                    });
+
+                    // Fill empty rows for second column
+                    for (let i = secondHalf.length; i < 5; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `<td>${i + 6}</td><td></td><td></td>`;
+                        tbody2.appendChild(tr);
+                    }
+                }
+
+                updateStatus(true);
+            } catch (error) {
+                console.error('Error loading Others:', error);
+                updateStatus(false);
+            }
+        }
+
+        // Load footer messages
         async function loadMessages() {
             try {
                 const response = await fetch(`${API_URL}?action=getPesan`);
                 const result = await response.json();
                 
-                if (result.status === 'success') {
-                    messages = result.data;
-                    updateFooterText();
-                    updateStatus(true);
+                const marquee = document.getElementById('footerMarquee');
+                marquee.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(msg => {
+                        const span = document.createElement('span');
+                        span.textContent = msg;
+                        marquee.appendChild(span);
+                    });
                 } else {
-                    console.error('Error loading messages:', result.message);
-                    updateStatus(false);
+                    const span = document.createElement('span');
+                    span.textContent = 'Sehat sehat semuanya';
+                    marquee.appendChild(span);
                 }
+
+                updateStatus(true);
             } catch (error) {
-                console.error('Fetch error:', error);
+                console.error('Error loading messages:', error);
                 updateStatus(false);
             }
         }
 
-        // Update footer text
-        function updateFooterText() {
-            const infoText = document.getElementById('infoText');
-            infoText.innerHTML = '';
-            
-            if (messages.length === 0) {
-                const span = document.createElement('span');
-                span.textContent = 'Tidak ada informasi saat ini';
-                infoText.appendChild(span);
-                return;
-            }
-
-            messages.forEach(message => {
-                if (message.trim()) {
-                    const span = document.createElement('span');
-                    span.textContent = message;
-                    infoText.appendChild(span);
-                }
-            });
-        }
-
         // Update status indicator
         function updateStatus(isOnline) {
-            const indicator = document.getElementById('statusIndicator');
+            const dot = document.getElementById('statusDot');
             if (isOnline) {
-                indicator.className = 'status-indicator status-online';
-                indicator.textContent = '🟢 Online';
+                dot.classList.add('online');
             } else {
-                indicator.className = 'status-indicator status-offline';
-                indicator.textContent = '🔴 Offline';
+                dot.classList.remove('online');
             }
         }
 
-        // Update time display
-        function updateTime() {
+        // Update time and date
+        function updateDateTime() {
             const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
             const monthsOfYear = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
-            const currentDate = new Date();
-            const dayOfWeek = daysOfWeek[currentDate.getDay()];
-            const dayOfMonth = currentDate.getDate();
-            const month = monthsOfYear[currentDate.getMonth()];
-            const year = currentDate.getFullYear();
-            const hours = currentDate.getHours().toString().padStart(2, '0');
-            const minutes = currentDate.getMinutes().toString().padStart(2, '0');
-            const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+            const now = new Date();
+            const dayOfWeek = daysOfWeek[now.getDay()];
+            const dayOfMonth = now.getDate();
+            const month = monthsOfYear[now.getMonth()];
+            const year = now.getFullYear();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
 
-            document.getElementById('timeDisplay').textContent = 
+            document.getElementById('dateDisplay').textContent = 
+                `${dayOfWeek}, ${dayOfMonth} ${month} ${year}`;
+            
+            document.getElementById('footerTime').textContent = 
                 `${dayOfWeek}, ${dayOfMonth} ${month} ${year} | ${hours}:${minutes}:${seconds}`;
         }
 
         // Initialize
-        setTimeout(() => {
-            document.getElementById('loadingScreen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 500);
-            document.getElementById('slidesFrame').style.opacity = '1';
-        }, 3000);
+        function init() {
+            loadOutOffOffice();
+            loadOthers();
+            loadMessages();
+            updateDateTime();
+        }
 
-        loadMessages();
-        setInterval(loadMessages, 10000); // Auto refresh every 10 seconds
-        setInterval(updateTime, 1000);
-        updateTime();
+        // Auto refresh
+        setInterval(loadOutOffOffice, 30000); // Every 30 seconds
+        setInterval(loadOthers, 30000);
+        setInterval(loadMessages, 60000); // Every 1 minute
+        setInterval(updateDateTime, 1000);
+
+        // Initial load
+        init();
     </script>
 </body>
 </html>
