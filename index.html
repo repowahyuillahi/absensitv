@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Display Informasi Digital Tjahaja Baru</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+
+        #slidesFrame {
+            width: 100%;
+            height: calc(100vh - 45px);
+            border: none;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loader {
+            width: 50px;
+            aspect-ratio: 1;
+            --c: linear-gradient(#fff 0 0);
+            --m: radial-gradient(farthest-side, #fff 92%, #0000);
+            background: 
+                var(--c), var(--m),
+                var(--c), var(--m), 
+                var(--c), var(--m);
+            background-size: 10px 15px, 10px 10px;
+            background-repeat: no-repeat;
+            animation: l17 1s infinite linear;
+        }
+
+        @keyframes l17 {
+            0%, 5% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% 50%, 100% 0}
+            12.5% {background-position: 0 50%, 0 calc(50% - 10px), 50% 50%, 50% 0, 100% 50%, 100% 0}
+            25% {background-position: 0 calc(50% + 10px), 0 50%, 50% 50%, 50% 0, 100% 50%, 100% 0}
+            37.5% {background-position: 0 calc(50% + 10px), 0 50%, 50% 50%, 50% calc(50% - 10px), 100% 50%, 100% 0}
+            50% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% 50%, 100% 0}
+            62.5% {background-position: 0 50%, 0 0, 50% calc(50% + 10px), 50% 50%, 100% 50%, 100% calc(50% - 10px)}
+            75% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% calc(50% + 10px), 100% 50%}
+            87.5% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% calc(50% + 10px), 100% 50%}
+            95%, 100% {background-position: 0 50%, 0 0, 50% 50%, 50% 0, 100% 50%, 100% 0}
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: 42px;
+            color: #ffffff;
+            margin-top: 25px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #041066 0%, #0520a8 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 8px 15px;
+            height: 45px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        #timeDisplay {
+            min-width: 300px;
+            font-weight: 700;
+            font-size: 16px;
+            color: #ffd700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            padding-right: 20px;
+            border-right: 2px solid rgba(255,255,255,0.3);
+        }
+
+        #infoTextContainer {
+            flex: 1;
+            overflow: hidden;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        #infoText {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        #infoText span {
+            display: inline-block;
+            margin-right: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingScreen">
+        <div class="loader"></div>
+        <div class="title">TJAHAJA BARU</div>
+    </div>
+
+    <iframe id="slidesFrame" 
+            src="https://docs.google.com/presentation/d/e/2PACX-1vSQ38LjFgAHXbNbfC4gkaOTJsLCCny4BZhxZ3ttF_mD74Onq800eqQhN7pqHnr6fgexDu8dSJv1Fl1d/embed?start=true&loop=true&delayms=30000" 
+            allowfullscreen="true">
+    </iframe>
+
+    <div id="footer">
+        <div id="timeDisplay">00:00:00</div>
+        <div id="infoTextContainer">
+            <div id="infoText"></div>
+        </div>
+    </div>
+
+    <script>
+        // Default messages
+        let messages = [
+            "SELAMAT DATANG DI TJAHAJA BARU",
+            "LAYANAN TERBAIK UNTUK ANDA",
+            "INFORMASI TERKINI SETIAP HARI",
+            "TERIMA KASIH ATAS KEPERCAYAAN ANDA"
+        ];
+
+        // Load messages from localStorage
+        function loadMessages() {
+            const saved = localStorage.getItem('tjahajaBaru_displayMessages');
+            if (saved) {
+                try {
+                    messages = JSON.parse(saved);
+                } catch(e) {
+                    console.error('Error loading messages:', e);
+                }
+            }
+            updateFooterText();
+        }
+
+        // Update footer text animation
+        function updateFooterText() {
+            const infoText = document.getElementById('infoText');
+            infoText.innerHTML = '';
+            
+            messages.forEach(message => {
+                if (message.trim()) {
+                    const span = document.createElement('span');
+                    span.textContent = message;
+                    infoText.appendChild(span);
+                }
+            });
+        }
+
+        // Listen for storage changes (real-time update from admin page)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'tjahajaBaru_displayMessages') {
+                loadMessages();
+            }
+        });
+
+        // Update time display
+        function updateTime() {
+            const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const monthsOfYear = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+            const currentDate = new Date();
+            const dayOfWeek = daysOfWeek[currentDate.getDay()];
+            const dayOfMonth = currentDate.getDate();
+            const month = monthsOfYear[currentDate.getMonth()];
+            const year = currentDate.getFullYear();
+            const hours = currentDate.getHours().toString().padStart(2, '0');
+            const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+            const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+            document.getElementById('timeDisplay').textContent = 
+                `${dayOfWeek}, ${dayOfMonth} ${month} ${year} | ${hours}:${minutes}:${seconds}`;
+        }
+
+        // Initialize
+        setTimeout(() => {
+            document.getElementById('loadingScreen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 500);
+            document.getElementById('slidesFrame').style.opacity = '1';
+        }, 3000);
+
+        loadMessages();
+        setInterval(updateTime, 1000);
+        setInterval(loadMessages, 5000); // Auto refresh every 5 seconds
+        updateTime();
+    </script>
+</body>
+</html>
