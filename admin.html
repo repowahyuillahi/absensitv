@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>Admin Panel - Tjahaja Baru Display</title>
+    <title>Admin Panel - Tjahaja Baru</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -45,52 +45,76 @@
             opacity: 0.9;
         }
 
-        .content {
-            padding: 40px;
-        }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section h2 {
-            color: #041066;
-            font-size: 24px;
-            margin-bottom: 20px;
+        .tabs {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .message-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .message-item {
-            display: flex;
-            gap: 10px;
-            align-items: center;
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #041066;
+            border-bottom: 2px solid #dee2e6;
         }
 
-        .message-item input {
+        .tab {
             flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab.active {
+            background: white;
+            color: #041066;
+            border-bottom: 3px solid #041066;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
             border-radius: 5px;
-            font-size: 15px;
+            font-size: 14px;
             font-family: 'Roboto', sans-serif;
-            transition: border-color 0.3s;
         }
 
-        .message-item input:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: #041066;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
         .btn {
@@ -99,84 +123,53 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 16px;
             transition: all 0.3s;
             font-family: 'Roboto', sans-serif;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        .btn-primary {
+            background: #041066;
+            color: white;
+            width: 100%;
         }
 
-        .btn-delete {
+        .btn-primary:hover {
+            background: #0520a8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(4,16,102,0.3);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
             background: #dc3545;
             color: white;
         }
 
-        .btn-delete:hover {
+        .btn-danger:hover {
             background: #c82333;
         }
 
-        .btn-add {
-            background: #28a745;
-            color: white;
-            width: 100%;
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .btn-add:hover {
-            background: #218838;
-        }
-
-        .btn-save {
-            background: #007bff;
-            color: white;
-            width: 100%;
-            font-size: 18px;
-            padding: 15px;
-        }
-
-        .btn-save:hover {
-            background: #0056b3;
-        }
-
-        .btn-clear {
+        .btn-warning {
             background: #ffc107;
             color: #333;
-            width: 100%;
-            margin-top: 10px;
-            font-size: 16px;
         }
 
-        .btn-clear:hover {
+        .btn-warning:hover {
             background: #e0a800;
         }
 
-        .preview-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border: 2px dashed #041066;
-        }
-
-        .preview-text {
-            color: #041066;
-            font-size: 16px;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: marquee 20s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .preview-text span {
-            display: inline-block;
-            margin-right: 80px;
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
         }
 
         .alert {
@@ -192,48 +185,97 @@
             border: 1px solid #c3e6cb;
         }
 
-        .link-section {
-            background: #e7f3ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 30px;
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
-        .link-section a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .link-section a:hover {
-            text-decoration: underline;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
+        .table-container {
+            overflow-x: auto;
             margin-top: 20px;
         }
 
-        .stat-card {
-            flex: 1;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            background: #041066;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-done {
+            background: #6c757d;
+            color: white;
+        }
+
+        .empty-state {
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+            color: #999;
         }
 
-        .stat-card h3 {
-            color: #041066;
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
-
-        .stat-card p {
+        .loading {
+            text-align: center;
+            padding: 20px;
             color: #666;
-            font-size: 14px;
+        }
+
+        .link-display {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .link-display a {
+            color: #041066;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            .tab.active {
+                border-bottom: 3px solid #041066;
+            }
         }
     </style>
 </head>
@@ -241,203 +283,540 @@
 
     <div class="container">
         <div class="header">
-            <h1>🎛️ Admin Panel - Display Digital Tjahaja Baru</h1>
-            <p>Kelola informasi yang ditampilkan di layar TV/Monitor</p>
+            <h1>🎛️ Admin Panel</h1>
+            <p>Sistem Absensi & Informasi Digital Tjahaja Baru</p>
         </div>
 
-        <div class="content">
-            <div id="alertBox" class="alert alert-success"></div>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('out')">📋 Out Off Office</button>
+            <button class="tab" onclick="switchTab('others')">📝 Others (Cuti)</button>
+            <button class="tab" onclick="switchTab('pesan')">💬 Pesan Display</button>
+            <button class="tab" onclick="switchTab('riwayat')">📊 Riwayat</button>
+        </div>
 
-            <div class="section">
-                <h2>📊 Statistik</h2>
-                <div class="stats">
-                    <div class="stat-card">
-                        <h3 id="messageCount">0</h3>
-                        <p>Total Pesan</p>
+        <!-- Tab Out Off Office -->
+        <div id="tab-out" class="tab-content active">
+            <h2>Input Out Off Office</h2>
+            <div id="alert-out" class="alert"></div>
+            
+            <form id="form-out" onsubmit="submitOutOffOffice(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nama Karyawan *</label>
+                        <input type="text" id="out-nama" required placeholder="Contoh: Okhan Farlian">
                     </div>
-                    <div class="stat-card">
-                        <h3 id="lastUpdate">-</h3>
-                        <p>Terakhir Update</p>
+                    <div class="form-group">
+                        <label>Perusahaan *</label>
+                        <input type="text" id="out-perusahaan" required placeholder="Contoh: Tjahaja Baru">
                     </div>
                 </div>
-            </div>
 
-            <div class="section">
-                <h2>✏️ Kelola Pesan Informasi</h2>
-                <div class="message-list" id="messageList"></div>
-                <button class="btn btn-add" onclick="addMessage()">➕ Tambah Pesan Baru</button>
-            </div>
-
-            <div class="section">
-                <h2>👁️ Preview Tampilan</h2>
-                <div class="preview-section">
-                    <div class="preview-text" id="previewText"></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Jam Pergi *</label>
+                        <input type="time" id="out-jam-pergi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" id="out-tanggal">
+                    </div>
                 </div>
-            </div>
 
-            <div class="section">
-                <button class="btn btn-save" onclick="saveMessages()">💾 Simpan & Terapkan Perubahan</button>
-                <button class="btn btn-clear" onclick="clearAllMessages()">🗑️ Kosongkan Semua Pesan</button>
-            </div>
+                <div class="form-group">
+                    <label>Tujuan *</label>
+                    <input type="text" id="out-tujuan" required placeholder="Contoh: CSA Banjir Di UIN">
+                </div>
 
-            <div class="link-section">
-                <h3 style="margin-bottom: 10px; color: #041066;">🔗 Link Display</h3>
-                <p style="margin-bottom: 10px; color: #666;">Buka link ini di TV/Monitor untuk menampilkan informasi:</p>
-                <a href="index.html" target="_blank" id="displayLink">index.html</a>
+                <button type="submit" class="btn btn-primary">💾 Simpan Data</button>
+            </form>
+
+            <div class="table-container">
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Yang Belum Pulang Hari Ini</h3>
+                <table id="table-out-active">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Perusahaan</th>
+                            <th>Jam Pergi</th>
+                            <th>Tujuan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-out-active">
+                        <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
+        <!-- Tab Others -->
+        <div id="tab-others" class="tab-content">
+            <h2>Input Others (Cuti/Dinas Luar Kota)</h2>
+            <div id="alert-others" class="alert"></div>
+            
+            <form id="form-others" onsubmit="submitOthers(event)">
+                <div class="form-group">
+                    <label>Nama Karyawan *</label>
+                    <input type="text" id="others-nama" required placeholder="Contoh: Try Rina Hasan">
+                </div>
+
+                <div class="form-group">
+                    <label>Keterangan *</label>
+                    <input type="text" id="others-keterangan" required placeholder="Contoh: Cuti / Dinas Luar Kota">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tanggal Mulai *</label>
+                        <input type="date" id="others-tanggal-mulai" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Selesai *</label>
+                        <input type="date" id="others-tanggal-selesai" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">💾 Simpan Data</button>
+            </form>
+
+            <div class="table-container">
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Data Cuti/Dinas Aktif</h3>
+                <table id="table-others-active">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Keterangan</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Selesai</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-others-active">
+                        <tr class="loading"><td colspan="4">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab Pesan Display -->
+        <div id="tab-pesan" class="tab-content">
+            <h2>Kelola Pesan Display (Teks Berjalan)</h2>
+            <div id="alert-pesan" class="alert"></div>
+            
+            <div id="pesan-list"></div>
+            
+            <button class="btn btn-success" onclick="addPesanField()" style="margin-top: 15px; margin-bottom: 15px;">➕ Tambah Pesan</button>
+            
+            <button class="btn btn-primary" onclick="submitPesan()">💾 Simpan Semua Pesan</button>
+
+            <div class="link-display">
+                <strong>🔗 Link Display untuk TV:</strong><br>
+                <a href="index.html" target="_blank" id="link-display">index.html</a>
+            </div>
+        </div>
+
+        <!-- Tab Riwayat -->
+        <div id="tab-riwayat" class="tab-content">
+            <h2>Riwayat Data</h2>
+            
+            <div class="form-group">
+                <label>Filter Tanggal</label>
+                <input type="date" id="filter-tanggal" onchange="loadRiwayat()">
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Out Off Office</h3>
+            <div class="table-container">
+                <table id="table-riwayat-out">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Perusahaan</th>
+                            <th>Jam Pergi</th>
+                            <th>Jam Pulang</th>
+                            <th>Tujuan</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-riwayat-out">
+                        <tr class="loading"><td colspan="7">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Others</h3>
+            <div class="table-container">
+                <table id="table-riwayat-others">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Keterangan</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Selesai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-riwayat-others">
+                        <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        let messages = [];
+        // **WEB APP URL**
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
-        // Load messages from localStorage
-        function loadMessages() {
-            const saved = localStorage.getItem('tjahajaBaru_displayMessages');
-            if (saved) {
-                try {
-                    messages = JSON.parse(saved);
-                } catch(e) {
-                    messages = getDefaultMessages();
-                }
-            } else {
-                messages = getDefaultMessages();
-            }
-            renderMessageList();
-            updatePreview();
-            updateStats();
-        }
-
-        // Get default messages
-        function getDefaultMessages() {
-            return [
-                "SELAMAT DATANG DI TJAHAJA BARU",
-                "LAYANAN TERBAIK UNTUK ANDA",
-                "INFORMASI TERKINI SETIAP HARI",
-                "TERIMA KASIH ATAS KEPERCAYAAN ANDA"
-            ];
-        }
-
-        // Render message list
-        function renderMessageList() {
-            const container = document.getElementById('messageList');
-            container.innerHTML = '';
-            
-            if (messages.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #999;">Belum ada pesan. Klik "Tambah Pesan Baru" untuk mulai.</p>';
-                return;
-            }
-
-            messages.forEach((msg, index) => {
-                const div = document.createElement('div');
-                div.className = 'message-item';
-                div.innerHTML = `
-                    <span style="color: #041066; font-weight: bold; min-width: 30px;">#${index + 1}</span>
-                    <input type="text" value="${msg}" id="msg-${index}" 
-                           placeholder="Masukkan teks informasi yang ingin ditampilkan..."
-                           oninput="updatePreview()">
-                    <button class="btn btn-delete" onclick="deleteMessage(${index})">🗑️</button>
-                `;
-                container.appendChild(div);
+        // Switch Tab
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for specific tabs
+            if (tabName === 'out') {
+                loadActiveOut();
+            } else if (tabName === 'others') {
+                loadActiveOthers();
+            } else if (tabName === 'pesan') {
+                loadPesan();
+            } else if (tabName === 'riwayat') {
+                loadRiwayat();
+            }
         }
 
-        // Add new message
-        function addMessage() {
-            messages.push('');
-            renderMessageList();
-            updateStats();
-            // Focus on new input
-            const newIndex = messages.length - 1;
+        // Show Alert
+        function showAlert(containerId, message, type = 'success') {
+            const alert = document.getElementById(containerId);
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            
             setTimeout(() => {
-                document.getElementById(`msg-${newIndex}`).focus();
-            }, 100);
-        }
-
-        // Delete message
-        function deleteMessage(index) {
-            if (confirm('Hapus pesan ini?')) {
-                messages.splice(index, 1);
-                renderMessageList();
-                updatePreview();
-                updateStats();
-            }
-        }
-
-        // Clear all messages
-        function clearAllMessages() {
-            if (confirm('Kosongkan semua pesan? Tindakan ini tidak dapat dibatalkan!')) {
-                messages = [];
-                renderMessageList();
-                updatePreview();
-                updateStats();
-                showAlert('Semua pesan berhasil dikosongkan!');
-            }
-        }
-
-        // Save messages
-        function saveMessages() {
-            messages = [];
-            document.querySelectorAll('.message-item input').forEach(input => {
-                const value = input.value.trim();
-                if (value) messages.push(value);
-            });
-            
-            localStorage.setItem('tjahajaBaru_displayMessages', JSON.stringify(messages));
-            localStorage.setItem('tjahajaBaru_lastUpdate', new Date().toLocaleString('id-ID'));
-            
-            updatePreview();
-            updateStats();
-            showAlert('✅ Perubahan berhasil disimpan dan diterapkan ke display!');
-        }
-
-        // Update preview
-        function updatePreview() {
-            const previewText = document.getElementById('previewText');
-            previewText.innerHTML = '';
-            
-            const currentMessages = [];
-            document.querySelectorAll('.message-item input').forEach(input => {
-                const value = input.value.trim();
-                if (value) currentMessages.push(value);
-            });
-
-            if (currentMessages.length === 0) {
-                previewText.textContent = 'Tidak ada pesan untuk ditampilkan';
-                return;
-            }
-
-            currentMessages.forEach(message => {
-                const span = document.createElement('span');
-                span.textContent = message;
-                previewText.appendChild(span);
-            });
-        }
-
-        // Update statistics
-        function updateStats() {
-            document.getElementById('messageCount').textContent = messages.length;
-            const lastUpdate = localStorage.getItem('tjahajaBaru_lastUpdate');
-            document.getElementById('lastUpdate').textContent = lastUpdate ? 
-                new Date(lastUpdate).toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'}) : '-';
-        }
-
-        // Show alert
-        function showAlert(message) {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.textContent = message;
-            alertBox.style.display = 'block';
-            setTimeout(() => {
-                alertBox.style.display = 'none';
+                alert.style.display = 'none';
             }, 5000);
         }
 
-        // Set display link
-        document.getElementById('displayLink').href = window.location.href.replace('admin.html', 'index.html');
-        document.getElementById('displayLink').textContent = window.location.href.replace('admin.html', 'index.html');
+        // Submit Out Off Office
+        async function submitOutOffOffice(e) {
+            e.preventDefault();
+            
+            const data = {
+                nama: document.getElementById('out-nama').value,
+                perusahaan: document.getElementById('out-perusahaan').value,
+                jam_pergi: document.getElementById('out-jam-pergi').value,
+                tujuan: document.getElementById('out-tujuan').value,
+                tanggal: document.getElementById('out-tanggal').value || new Date().toISOString().split('T')[0]
+            };
 
-        // Initialize
-        loadMessages();
+            try {
+                const response = await fetch(`${API_URL}?action=saveOutOffOffice`, {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showAlert('alert-out', '✅ Data berhasil disimpan!', 'success');
+                    document.getElementById('form-out').reset();
+                    loadActiveOut();
+                } else {
+                    showAlert('alert-out', '❌ Error: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('alert-out', '❌ Error: ' + error.message, 'error');
+            }
+        }
+
+        // Submit Others
+        async function submitOthers(e) {
+            e.preventDefault();
+            
+            const data = {
+                nama: document.getElementById('others-nama').value,
+                keterangan: document.getElementById('others-keterangan').value,
+                tanggal_mulai: document.getElementById('others-tanggal-mulai').value,
+                tanggal_selesai: document.getElementById('others-tanggal-selesai').value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}?action=saveOthers`, {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showAlert('alert-others', '✅ Data berhasil disimpan!', 'success');
+                    document.getElementById('form-others').reset();
+                    loadActiveOthers();
+                } else {
+                    showAlert('alert-others', '❌ Error: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('alert-others', '❌ Error: ' + error.message, 'error');
+            }
+        }
+
+        // Load Active Out Off Office
+        async function loadActiveOut() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const response = await fetch(`${API_URL}?action=getOutOffOffice&tanggal=${today}`);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('tbody-out-active');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${item.nama}</td>
+                            <td>${item.perusahaan}</td>
+                            <td>${item.jam_pergi}</td>
+                            <td>${item.tujuan}</td>
+                            <td>
+                                <button class="btn btn-warning btn-small" onclick="markAsPulang('${item.nama}', '${item.tanggal}')">
+                                    ✓ Tandai Pulang
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Tidak ada data yang belum pulang</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading active out:', error);
+            }
+        }
+
+        // Mark as Pulang
+        async function markAsPulang(nama, tanggal) {
+            const jamPulang = prompt('Jam pulang (HH:MM):', new Date().toTimeString().slice(0,5));
+            
+            if (!jamPulang) return;
+
+            const data = {
+                nama: nama,
+                tanggal: tanggal,
+                jam_pulang: jamPulang
+            };
+
+            try {
+                const response = await fetch(`${API_URL}?action=updatePulang`, {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert('✅ Status berhasil diupdate!');
+                    loadActiveOut();
+                } else {
+                    alert('❌ Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Load Active Others
+        async function loadActiveOthers() {
+            try {
+                const response = await fetch(`${API_URL}?action=getOthers`);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('tbody-others-active');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${item.nama}</td>
+                            <td>${item.keterangan}</td>
+                            <td>${item.tanggal_mulai}</td>
+                            <td>${item.tanggal_selesai}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Tidak ada data cuti/dinas aktif</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading active others:', error);
+            }
+        }
+
+        // Load Pesan
+        async function loadPesan() {
+            try {
+                const response = await fetch(`${API_URL}?action=getPesan`);
+                const result = await response.json();
+                
+                const container = document.getElementById('pesan-list');
+                container.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach((msg, index) => {
+                        addPesanField(msg);
+                    });
+                } else {
+                    addPesanField('');
+                }
+            } catch (error) {
+                console.error('Error loading pesan:', error);
+            }
+        }
+
+        // Add Pesan Field
+        function addPesanField(value = '') {
+            const container = document.getElementById('pesan-list');
+            const div = document.createElement('div');
+            div.className = 'form-group';
+            div.innerHTML = `
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="pesan-input" value="${value}" 
+                           placeholder="Masukkan teks pesan yang akan ditampilkan..."
+                           style="flex: 1;">
+                    <button class="btn btn-danger btn-small" onclick="this.parentElement.parentElement.remove()">🗑️ Hapus</button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        // Submit Pesan
+        async function submitPesan() {
+            const inputs = document.querySelectorAll('.pesan-input');
+            const messages = [];
+            
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    messages.push(input.value.trim());
+                }
+            });
+
+            if (messages.length === 0) {
+                showAlert('alert-pesan', '⚠️ Minimal isi 1 pesan!', 'error');
+                return;
+            }
+
+            const data = { messages: messages };
+
+            try {
+                const response = await fetch(`${API_URL}?action=savePesan`, {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showAlert('alert-pesan', '✅ Pesan berhasil disimpan!', 'success');
+                } else {
+                    showAlert('alert-pesan', '❌ Error: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('alert-pesan', '❌ Error: ' + error.message, 'error');
+            }
+        }
+
+        // Load Riwayat
+        async function loadRiwayat() {
+            const filterTanggal = document.getElementById('filter-tanggal').value;
+            
+            // Load Riwayat Out
+            try {
+                const url = filterTanggal ? 
+                    `${API_URL}?action=getRiwayatOut&tanggal=${filterTanggal}` : 
+                    `${API_URL}?action=getRiwayatOut`;
+                    
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('tbody-riwayat-out');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${item.tanggal}</td>
+                            <td>${item.nama}</td>
+                            <td>${item.perusahaan}</td>
+                            <td>${item.jam_pergi}</td>
+                            <td>${item.jam_pulang}</td>
+                            <td>${item.tujuan}</td>
+                            <td><span class="status-badge ${item.status === 'Sudah Pulang' ? 'status-done' : 'status-active'}">${item.status}</span></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Tidak ada data riwayat</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading riwayat out:', error);
+            }
+
+            // Load Riwayat Others
+            try {
+                const url = filterTanggal ? 
+                    `${API_URL}?action=getRiwayatOthers&tanggal=${filterTanggal}` : 
+                    `${API_URL}?action=getRiwayatOthers`;
+                    
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('tbody-riwayat-others');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${item.nama}</td>
+                            <td>${item.keterangan}</td>
+                            <td>${item.tanggal_mulai}</td>
+                            <td>${item.tanggal_selesai}</td>
+                            <td><span class="status-badge ${item.status === 'Selesai' ? 'status-done' : 'status-active'}">${item.status}</span></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Tidak ada data riwayat</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading riwayat others:', error);
+            }
+        }
+
+        // Set default date to today
+        document.getElementById('out-tanggal').value = new Date().toISOString().split('T')[0];
+        document.getElementById('out-jam-pergi').value = new Date().toTimeString().slice(0,5);
+        document.getElementById('filter-tanggal').value = new Date().toISOString().split('T')[0];
+
+        // Set display link
+        const currentUrl = window.location.href;
+        const displayUrl = currentUrl.replace('admin.html', 'index.html');
+        document.getElementById('link-display').href = displayUrl;
+        document.getElementById('link-display').textContent = displayUrl;
+
+        // Initial load
+        loadActiveOut();
     </script>
 </body>
 </html>
