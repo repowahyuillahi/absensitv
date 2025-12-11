@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f5f7fa;
+            background: #f8f9fa;
             overflow: hidden;
             height: 100vh;
         }
@@ -32,26 +32,71 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(12px, 2vh, 24px) clamp(20px, 3vw, 40px);
-            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            padding: clamp(12px, 2vh, 20px) clamp(20px, 3vw, 40px);
+            background: #041066;
             color: white;
             flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(4, 16, 102, 0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .date-display {
-            font-size: clamp(16px, 2.5vw, 32px);
+            font-size: clamp(16px, 2.5vw, 28px);
             font-weight: 600;
             color: white;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
-        .logo-text {
-            font-size: clamp(18px, 3vw, 36px);
-            font-weight: 700;
-            color: white;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: clamp(50px, 6vh, 80px);
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Status Indicator - Pindah ke kiri bawah */
+        .status-indicator {
+            position: fixed;
+            bottom: clamp(70px, 8vh, 90px);
+            left: clamp(12px, 2vw, 24px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-size: clamp(10px, 1.1vw, 13px);
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #dc3545;
+            animation: blink 2s infinite;
+        }
+
+        .status-dot.online {
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         /* Main Content */
@@ -67,15 +112,14 @@
 
         /* Section Title */
         .section-title {
-            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            background: #041066;
             color: white;
             text-align: center;
             padding: clamp(8px, 1.5vh, 14px);
-            font-size: clamp(14px, 2vw, 24px);
+            font-size: clamp(14px, 2vw, 22px);
             font-weight: 600;
-            border-radius: 12px 12px 0 0;
+            border-radius: 10px 10px 0 0;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(4, 16, 102, 0.1);
         }
 
         /* Out Section */
@@ -85,8 +129,8 @@
             flex-direction: column;
             min-height: 0;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
@@ -94,7 +138,6 @@
             flex: 1;
             overflow: hidden;
             min-height: 0;
-            border-radius: 0 0 12px 12px;
         }
 
         table {
@@ -104,7 +147,7 @@
         }
 
         table thead {
-            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            background: #041066;
             color: white;
             position: sticky;
             top: 0;
@@ -112,13 +155,17 @@
         }
 
         table th {
-            padding: clamp(8px, 1.5vh, 16px) clamp(6px, 1vw, 12px);
+            padding: clamp(10px, 1.8vh, 16px) clamp(8px, 1.2vw, 14px);
             font-weight: 600;
             text-align: center;
-            font-size: clamp(11px, 1.5vw, 18px);
+            font-size: clamp(12px, 1.6vw, 17px);
             white-space: nowrap;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
+            border-right: 1px solid rgba(255,255,255,0.2);
             letter-spacing: 0.3px;
+        }
+
+        table th:last-child {
+            border-right: none;
         }
 
         table tbody {
@@ -134,7 +181,8 @@
         }
 
         table tbody tr {
-            transition: all 0.2s ease;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid #e8edf7;
         }
 
         table tbody tr:nth-child(odd) {
@@ -146,18 +194,20 @@
         }
 
         table tbody tr:hover {
-            background: #e8edf7;
-            transform: scale(1.005);
+            background: #e8eef7 !important;
         }
 
         table td {
-            padding: clamp(8px, 1.5vh, 14px) clamp(6px, 1vw, 12px);
+            padding: clamp(10px, 1.8vh, 14px) clamp(8px, 1.2vw, 12px);
             text-align: center;
-            border-bottom: 1px solid #e8edf7;
-            font-size: clamp(10px, 1.4vw, 17px);
+            font-size: clamp(11px, 1.5vw, 16px);
             color: #2d3748;
-            word-wrap: break-word;
             font-weight: 500;
+            border-right: 1px solid #e8edf7;
+        }
+
+        table td:last-child {
+            border-right: none;
         }
 
         table td:first-child {
@@ -179,27 +229,27 @@
             display: flex;
             flex-direction: column;
             min-height: 0;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
         /* Footer */
         .footer {
             flex-shrink: 0;
-            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            background: #041066;
             color: white;
             display: flex;
             align-items: center;
             padding: clamp(8px, 1.5vh, 14px) clamp(16px, 2vw, 24px);
-            height: clamp(40px, 5.5vh, 60px);
-            box-shadow: 0 -4px 12px rgba(4, 16, 102, 0.15);
+            height: clamp(45px, 6vh, 60px);
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
         }
 
         .footer-time {
-            min-width: clamp(180px, 26vw, 400px);
+            min-width: clamp(200px, 28vw, 420px);
             font-weight: 700;
-            font-size: clamp(11px, 1.6vw, 18px);
+            font-size: clamp(12px, 1.6vw, 18px);
             color: #ffd700;
             padding-right: clamp(12px, 2vw, 24px);
             border-right: 2px solid rgba(255,255,255,0.3);
@@ -219,7 +269,7 @@
             display: inline-block;
             white-space: nowrap;
             animation: marquee 35s linear infinite;
-            font-size: clamp(11px, 1.6vw, 18px);
+            font-size: clamp(12px, 1.6vw, 18px);
             font-weight: 500;
             letter-spacing: 0.3px;
         }
@@ -249,46 +299,6 @@
             font-size: clamp(11px, 1.5vw, 15px);
         }
 
-        /* Status Indicator */
-        .status-indicator {
-            position: fixed;
-            top: clamp(12px, 2vh, 24px);
-            right: clamp(12px, 2vw, 24px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            padding: 8px 16px;
-            border-radius: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 1000;
-            font-size: clamp(11px, 1.2vw, 14px);
-            font-weight: 600;
-        }
-
-        .status-dot {
-            width: clamp(8px, 1vw, 12px);
-            height: clamp(8px, 1vw, 12px);
-            border-radius: 50%;
-            background: #dc3545;
-            animation: blink 2s infinite;
-        }
-
-        .status-dot.online {
-            background: #28a745;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50%, 100% { opacity: 1; }
-            25%, 75% { opacity: 0.3; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
         /* Scrollbar Custom */
         ::-webkit-scrollbar {
             width: 8px;
@@ -301,12 +311,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #041066 0%, #0832d4 100%);
+            background: #041066;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #030d4d 0%, #0626a8 100%);
+            background: #030d4d;
         }
 
         /* Mobile Adjustments */
@@ -318,8 +328,12 @@
                 padding: 12px 16px;
             }
 
-            .date-display, .logo-text {
-                font-size: 18px;
+            .date-display {
+                font-size: 16px;
+            }
+
+            .logo-img {
+                height: 50px;
             }
 
             .others-container {
@@ -354,25 +368,25 @@
 
             table th, table td {
                 padding: 8px 6px;
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .section-title {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             .status-indicator {
-                top: 8px;
-                right: 8px;
-                padding: 6px 12px;
-                font-size: 11px;
+                bottom: 60px;
+                left: 8px;
+                padding: 5px 10px;
+                font-size: 10px;
             }
         }
 
-        /* Tablet Adjustments */
+        /* Tablet */
         @media (min-width: 769px) and (max-width: 1024px) {
             table th, table td {
-                font-size: 14px;
+                font-size: 13px;
                 padding: 10px 8px;
             }
         }
@@ -384,21 +398,17 @@
             }
 
             .section-title {
-                padding: 6px;
-                font-size: 13px;
-            }
-
-            .others-container {
-                max-height: 32vh;
+                padding: 5px;
+                font-size: 12px;
             }
 
             table th, table td {
                 padding: 4px 6px;
-                font-size: 11px;
+                font-size: 10px;
             }
 
             .footer {
-                padding: 6px 12px;
+                padding: 5px 12px;
                 height: 35px;
             }
         }
@@ -414,7 +424,9 @@
     <div class="container">
         <div class="header">
             <div class="date-display" id="dateDisplay">Kamis, 11 Desember 2025</div>
-            <div class="logo-text">TJAHAJA BARU</div>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Tjahaja Baru Logo" class="logo-img" id="logoImg">
+            </div>
         </div>
 
         <div class="content">
@@ -426,10 +438,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">NO</th>
-                                <th style="width: 22%">NAMA</th>
-                                <th style="width: 20%">PERUSAHAAN</th>
+                                <th style="width: 23%">NAMA</th>
+                                <th style="width: 23%">PERUSAHAAN</th>
                                 <th style="width: 12%">JAM PERGI</th>
-                                <th style="width: 41%">TUJUAN</th>
+                                <th style="width: 37%">TUJUAN</th>
                             </tr>
                         </thead>
                         <tbody id="outOffOfficeBody">
@@ -447,9 +459,9 @@
                         <table id="othersTable1">
                             <thead>
                                 <tr>
-                                    <th style="width: 15%">No</th>
-                                    <th style="width: 42%">Nama</th>
-                                    <th style="width: 43%">Keterangan</th>
+                                    <th style="width: 12%">No</th>
+                                    <th style="width: 40%">Nama</th>
+                                    <th style="width: 48%">Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody1">
@@ -465,9 +477,9 @@
                         <table id="othersTable2">
                             <thead>
                                 <tr>
-                                    <th style="width: 15%">No</th>
-                                    <th style="width: 42%">Nama</th>
-                                    <th style="width: 43%">Keterangan</th>
+                                    <th style="width: 12%">No</th>
+                                    <th style="width: 40%">Nama</th>
+                                    <th style="width: 48%">Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody2">
@@ -491,7 +503,7 @@
         // **WEB APP URL**
         const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
-        // Load Out Off Office data - SUPPORT UNLIMITED DATA
+        // Load Out Off Office data
         async function loadOutOffOffice() {
             try {
                 const today = new Date().toISOString().split('T')[0];
@@ -502,7 +514,6 @@
                 tbody.innerHTML = '';
 
                 if (result.status === 'success' && result.data.length > 0) {
-                    // TAMPILKAN SEMUA DATA (tidak ada batasan)
                     result.data.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -515,7 +526,7 @@
                         tbody.appendChild(tr);
                     });
                 } else {
-                    // Tampilkan beberapa baris kosong untuk estetika
+                    // Empty state
                     for (let i = 0; i < 5; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
@@ -565,7 +576,6 @@
                         tbody1.appendChild(tr);
                     });
 
-                    // Fill empty if needed
                     if (firstHalf.length === 0) {
                         for (let i = 0; i < 3; i++) {
                             const tr = document.createElement('tr');
@@ -586,7 +596,6 @@
                         tbody2.appendChild(tr);
                     });
 
-                    // Fill empty if needed
                     if (secondHalf.length === 0) {
                         for (let i = 0; i < 3; i++) {
                             const tr = document.createElement('tr');
@@ -596,7 +605,7 @@
                         }
                     }
                 } else {
-                    // Empty state for both columns
+                    // Empty state
                     for (let i = 0; i < 3; i++) {
                         const tr1 = document.createElement('tr');
                         tr1.className = 'empty-row';
