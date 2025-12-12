@@ -31,20 +31,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: clamp(12px, 1.5vh, 20px) clamp(20px, 2.5vw, 40px);
             background: #FFFFFF;
             border-bottom: 3px solid #041066;
             flex-shrink: 0;
         }
 
         .date-display {
-            font-size: 28px;
+            font-size: clamp(18px, 2.2vw, 28px);
             font-weight: 600;
             color: #1E293B;
         }
 
         .logo-wrapper {
-            height: 70px;
+            height: clamp(50px, 6vh, 70px);
         }
 
         .logo-wrapper img {
@@ -55,24 +55,24 @@
         /* ===== STATUS INDICATOR ===== */
         .status-indicator {
             position: fixed;
-            bottom: 90px;
-            left: 24px;
+            bottom: clamp(70px, 9vh, 90px);
+            left: clamp(16px, 2vw, 24px);
             display: flex;
             align-items: center;
             gap: 8px;
             background: white;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 24px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1000;
-            font-size: 13px;
+            font-size: clamp(10px, 1.2vw, 13px);
             font-weight: 600;
             border: 2px solid #E2E8F0;
         }
 
         .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #EF4444;
             animation: blink 2s infinite;
@@ -96,11 +96,11 @@
         /* ===== MAIN CONTENT ===== */
         .content {
             flex: 1;
-            padding: 24px 40px;
-            overflow: auto;
+            padding: clamp(12px, 1.8vh, 24px) clamp(16px, 2.5vw, 40px);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: clamp(12px, 1.8vh, 20px);
             background: #FFFFFF;
             min-height: 0;
         }
@@ -110,8 +110,8 @@
             background: #041066;
             color: white;
             text-align: center;
-            padding: 14px;
-            font-size: 22px;
+            padding: clamp(8px, 1.2vh, 14px);
+            font-size: clamp(14px, 1.8vw, 22px);
             font-weight: 700;
             letter-spacing: 0.5px;
             border-radius: 4px 4px 0 0;
@@ -128,36 +128,35 @@
             min-height: 0;
         }
 
-        .table-wrapper {
-            overflow-y: auto;
-            overflow-x: auto;
+        .table-container {
             flex: 1;
+            overflow: hidden;
             min-height: 0;
         }
 
         /* ===== TABLE STYLES ===== */
         table {
             width: 100%;
+            height: 100%;
             border-collapse: collapse;
             background: white;
+            table-layout: fixed;
         }
 
         table thead {
             background: #041066;
             color: white;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         table th {
-            padding: 14px 16px;
+            padding: clamp(8px, 1.2vh, 14px) clamp(8px, 1vw, 16px);
             font-weight: 700;
             text-align: center;
-            font-size: 16px;
+            font-size: clamp(11px, 1.4vw, 16px);
             border-right: 1px solid rgba(255, 255, 255, 0.2);
             letter-spacing: 0.3px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         table th:last-child {
@@ -177,12 +176,15 @@
         }
 
         table td {
-            padding: 12px 16px;
+            padding: clamp(6px, 1vh, 12px) clamp(6px, 0.8vw, 16px);
             text-align: center;
-            font-size: 15px;
+            font-size: clamp(10px, 1.3vw, 15px);
             color: #1E293B;
             font-weight: 500;
             border-right: 1px solid #E2E8F0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         table td:last-child {
@@ -214,8 +216,9 @@
         .others-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: clamp(12px, 2vw, 24px);
             flex: 0 0 auto;
+            height: clamp(180px, 22vh, 280px);
         }
 
         .others-section {
@@ -226,8 +229,8 @@
             flex-direction: column;
         }
 
-        .others-section .table-wrapper {
-            max-height: 250px;
+        .others-section .table-container {
+            overflow: hidden;
         }
 
         /* Column Widths - Others */
@@ -254,18 +257,18 @@
             color: white;
             display: flex;
             align-items: center;
-            padding: 16px 32px;
-            height: 70px;
+            padding: clamp(10px, 1.5vh, 16px) clamp(16px, 2.5vw, 32px);
+            height: clamp(50px, 6.5vh, 70px);
             box-shadow: 0 -4px 12px rgba(4, 16, 102, 0.15);
             border-top: 3px solid #FFA500;
         }
 
         .footer-time {
-            min-width: 300px;
+            min-width: clamp(200px, 22vw, 300px);
             font-weight: 700;
-            font-size: 17px;
+            font-size: clamp(11px, 1.5vw, 17px);
             color: #FFA500;
-            padding-right: 24px;
+            padding-right: clamp(12px, 2vw, 24px);
             border-right: 2px solid rgba(255,255,255,0.3);
             white-space: nowrap;
             letter-spacing: 0.3px;
@@ -274,14 +277,14 @@
         .footer-text {
             flex: 1;
             overflow: hidden;
-            margin-left: 24px;
+            margin-left: clamp(12px, 2vw, 24px);
         }
 
         .footer-marquee {
             display: inline-block;
             white-space: nowrap;
             animation: marquee 40s linear infinite;
-            font-size: 17px;
+            font-size: clamp(11px, 1.5vw, 17px);
             font-weight: 500;
             letter-spacing: 0.3px;
         }
@@ -293,147 +296,7 @@
 
         .footer-marquee span {
             display: inline-block;
-            margin-right: 150px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .header {
-                padding: 16px 24px;
-            }
-
-            .date-display {
-                font-size: 22px;
-            }
-
-            .logo-wrapper {
-                height: 60px;
-            }
-
-            .content {
-                padding: 16px 24px;
-            }
-
-            .others-container {
-                grid-template-columns: 1fr;
-            }
-
-            table th,
-            table td {
-                padding: 10px 12px;
-                font-size: 14px;
-            }
-
-            .section-title {
-                font-size: 18px;
-                padding: 12px;
-            }
-
-            .footer {
-                padding: 12px 20px;
-                height: 60px;
-            }
-
-            .footer-time {
-                font-size: 15px;
-                min-width: 250px;
-            }
-
-            .footer-marquee {
-                font-size: 15px;
-            }
-
-            .status-indicator {
-                bottom: 75px;
-                left: 16px;
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 12px;
-                padding: 16px 20px;
-            }
-
-            .date-display {
-                font-size: 18px;
-            }
-
-            .logo-wrapper {
-                height: 50px;
-            }
-
-            .content {
-                padding: 12px 16px;
-                gap: 16px;
-            }
-
-            table th,
-            table td {
-                padding: 8px 10px;
-                font-size: 13px;
-            }
-
-            .section-title {
-                font-size: 16px;
-                padding: 10px;
-            }
-
-            .footer {
-                flex-direction: column;
-                height: auto;
-                padding: 12px 16px;
-                gap: 10px;
-            }
-
-            .footer-time {
-                border-right: none;
-                border-bottom: 1px solid rgba(255,255,255,0.3);
-                padding-bottom: 10px;
-                padding-right: 0;
-                min-width: 100%;
-                text-align: center;
-                font-size: 14px;
-            }
-
-            .footer-text {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .footer-marquee {
-                font-size: 14px;
-            }
-
-            .status-indicator {
-                bottom: auto;
-                top: 90px;
-                left: 12px;
-                font-size: 11px;
-                padding: 5px 10px;
-            }
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #F1F5F9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #041066;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #030d4d;
+            margin-right: clamp(80px, 12vw, 150px);
         }
     </style>
 </head>
@@ -460,7 +323,7 @@
             <!-- OUT OFF OFFICE TABLE -->
             <div class="table-section">
                 <div class="section-title">Out Off Office</div>
-                <div class="table-wrapper">
+                <div class="table-container">
                     <table class="out-table">
                         <thead>
                             <tr>
@@ -472,7 +335,7 @@
                             </tr>
                         </thead>
                         <tbody id="outOffOfficeBody">
-                            <tr><td colspan="5" style="padding: 30px; color: #94A3B8;">Memuat data...</td></tr>
+                            <!-- Will be filled by JavaScript - MAX 21 rows visible -->
                         </tbody>
                     </table>
                 </div>
@@ -482,7 +345,7 @@
             <div class="others-container">
                 <div class="others-section">
                     <div class="section-title">Others</div>
-                    <div class="table-wrapper">
+                    <div class="table-container">
                         <table class="others-table">
                             <thead>
                                 <tr>
@@ -492,7 +355,7 @@
                                 </tr>
                             </thead>
                             <tbody id="othersBody1">
-                                <tr><td colspan="3" style="padding: 20px; color: #94A3B8;">Memuat data...</td></tr>
+                                <!-- Will be filled by JavaScript - MAX 5 rows -->
                             </tbody>
                         </table>
                     </div>
@@ -500,7 +363,7 @@
 
                 <div class="others-section">
                     <div class="section-title">Others</div>
-                    <div class="table-wrapper">
+                    <div class="table-container">
                         <table class="others-table">
                             <thead>
                                 <tr>
@@ -510,7 +373,7 @@
                                 </tr>
                             </thead>
                             <tbody id="othersBody2">
-                                <tr><td colspan="3" style="padding: 20px; color: #94A3B8;">Memuat data...</td></tr>
+                                <!-- Will be filled by JavaScript - MAX 5 rows -->
                             </tbody>
                         </table>
                     </div>
@@ -533,6 +396,10 @@
         // **GANTI DENGAN WEB APP URL ANDA**
         const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
+        // Maximum rows to display
+        const MAX_OUT_ROWS = 21;
+        const MAX_OTHERS_ROWS = 5;
+
         // Load Out Off Office data
         async function loadOutOffOffice() {
             try {
@@ -544,7 +411,10 @@
                 tbody.innerHTML = '';
 
                 if (result.status === 'success' && result.data.length > 0) {
-                    result.data.forEach((item, index) => {
+                    // Ambil maksimal MAX_OUT_ROWS data terbaru
+                    const displayData = result.data.slice(0, MAX_OUT_ROWS);
+                    
+                    displayData.forEach((item, index) => {
                         let jamPergi = item.jam_pergi;
                         
                         if (jamPergi && (jamPergi.includes('T') || jamPergi.includes('-'))) {
@@ -564,9 +434,24 @@
                         `;
                         tbody.appendChild(tr);
                     });
+
+                    // Fill remaining rows dengan empty state
+                    const remaining = MAX_OUT_ROWS - displayData.length;
+                    for (let i = 0; i < remaining; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `
+                            <td>${displayData.length + i + 1}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
                 } else {
-                    // Show empty rows (minimal 15 rows)
-                    for (let i = 0; i < 15; i++) {
+                    // Show all empty rows
+                    for (let i = 0; i < MAX_OUT_ROWS; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
                         tr.innerHTML = `
@@ -599,12 +484,12 @@
                 tbody2.innerHTML = '';
 
                 if (result.status === 'success' && result.data.length > 0) {
-                    const data = result.data;
-                    const half = Math.ceil(data.length / 2);
-                    const firstHalf = data.slice(0, half);
-                    const secondHalf = data.slice(half);
+                    // Ambil maksimal 10 data (5 kiri + 5 kanan)
+                    const displayData = result.data.slice(0, MAX_OTHERS_ROWS * 2);
+                    const firstHalf = displayData.slice(0, MAX_OTHERS_ROWS);
+                    const secondHalf = displayData.slice(MAX_OTHERS_ROWS, MAX_OTHERS_ROWS * 2);
 
-                    // Fill first column
+                    // Fill first column (kiri)
                     firstHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -615,9 +500,9 @@
                         tbody1.appendChild(tr);
                     });
 
-                    // Fill remaining rows with empty state
-                    const emptyRowsFirst = 5 - firstHalf.length;
-                    for (let i = 0; i < emptyRowsFirst; i++) {
+                    // Fill remaining rows dengan empty state (kolom kiri)
+                    const remainingFirst = MAX_OTHERS_ROWS - firstHalf.length;
+                    for (let i = 0; i < remainingFirst; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
                         tr.innerHTML = `
@@ -628,24 +513,24 @@
                         tbody1.appendChild(tr);
                     }
 
-                    // Fill second column
+                    // Fill second column (kanan)
                     secondHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>${index + half + 1}</td>
+                            <td>${index + MAX_OTHERS_ROWS + 1}</td>
                             <td>${item.nama}</td>
                             <td>${item.keterangan}</td>
                         `;
                         tbody2.appendChild(tr);
                     });
 
-                    // Fill remaining rows with empty state
-                    const emptyRowsSecond = 5 - secondHalf.length;
-                    for (let i = 0; i < emptyRowsSecond; i++) {
+                    // Fill remaining rows dengan empty state (kolom kanan)
+                    const remainingSecond = MAX_OTHERS_ROWS - secondHalf.length;
+                    for (let i = 0; i < remainingSecond; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
                         tr.innerHTML = `
-                            <td>${half + secondHalf.length + i + 1}</td>
+                            <td>${MAX_OTHERS_ROWS + secondHalf.length + i + 1}</td>
                             <td>-</td>
                             <td>-</td>
                         `;
@@ -653,7 +538,7 @@
                     }
                 } else {
                     // Show empty state for both columns
-                    for (let i = 0; i < 5; i++) {
+                    for (let i = 0; i < MAX_OTHERS_ROWS; i++) {
                         const tr1 = document.createElement('tr');
                         tr1.className = 'empty-row';
                         tr1.innerHTML = `<td>${i + 1}</td><td>-</td><td>-</td>`;
@@ -661,7 +546,7 @@
 
                         const tr2 = document.createElement('tr');
                         tr2.className = 'empty-row';
-                        tr2.innerHTML = `<td>${i + 6}</td><td>-</td><td>-</td>`;
+                        tr2.innerHTML = `<td>${i + MAX_OTHERS_ROWS + 1}</td><td>-</td><td>-</td>`;
                         tbody2.appendChild(tr2);
                     }
                 }
