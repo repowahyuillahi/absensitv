@@ -175,25 +175,6 @@
             transform: none;
         }
 
-        .test-btn {
-            width: 100%;
-            padding: 12px;
-            background: #64748B;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-            margin-top: 10px;
-        }
-
-        .test-btn:hover {
-            background: #475569;
-        }
-
         .login-footer {
             padding: 20px 30px;
             background: #F8FAFC;
@@ -271,11 +252,6 @@
                     🔐 Masuk ke Dashboard
                 </button>
             </form>
-
-            <!-- Test Button (optional - bisa dihapus setelah production) -->
-            <button type="button" class="test-btn" onclick="testAPI()">
-                🧪 Test API Connection
-            </button>
         </div>
 
         <div class="login-footer">
@@ -284,11 +260,20 @@
     </div>
 
     <script>
-        // **GANTI DENGAN WEB APP URL ANDA**
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
+        // ✅ PASSWORD HARDCODED (Ganti sesuai kebutuhan)
+        const USERS = {
+            'admin': {
+                password: 'admin123',
+                nama: 'Administrator'
+            },
+            'okhan': {
+                password: 'okhan2025',
+                nama: 'Okhan Farlian'
+            }
+        };
 
         // Handle Login
-        async function handleLogin(e) {
+        function handleLogin(e) {
             e.preventDefault();
             
             const username = document.getElementById('loginUsername').value;
@@ -300,27 +285,18 @@
             loginBtn.innerHTML = '⏳ Memproses...';
             loginAlert.style.display = 'none';
 
-            try {
-                console.log('Attempting login...', username);
-                
-                // ✅ Kirim sebagai URL-encoded form data
-                const formData = new URLSearchParams();
-                formData.append('username', username);
-                formData.append('password', password);
-                
-                const response = await fetch(`${API_URL}?action=login`, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                console.log('Response status:', response.status);
-                
-                const result = await response.json();
-                console.log('Response result:', result);
-                
-                if (result.status === 'success') {
+            // Simulasi delay untuk keamanan (agar tidak terlihat terlalu instant)
+            setTimeout(() => {
+                // Validasi
+                if (USERS[username] && USERS[username].password === password) {
+                    // Login berhasil
+                    const userData = {
+                        username: username,
+                        nama: USERS[username].nama
+                    };
+                    
                     // Save to sessionStorage
-                    sessionStorage.setItem('loggedInUser', JSON.stringify(result.data));
+                    sessionStorage.setItem('loggedInUser', JSON.stringify(userData));
                     
                     // Show success
                     loginAlert.className = 'alert success';
@@ -332,44 +308,15 @@
                         window.location.href = 'admin.html';
                     }, 1000);
                 } else {
+                    // Login gagal
                     loginAlert.className = 'alert error';
-                    loginAlert.innerHTML = '❌ ' + result.message;
+                    loginAlert.innerHTML = '❌ Username atau password salah!';
                     loginAlert.style.display = 'block';
+                    
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '🔐 Masuk ke Dashboard';
                 }
-            } catch (error) {
-                console.error('Login error:', error);
-                loginAlert.className = 'alert error';
-                loginAlert.innerHTML = '❌ Terjadi kesalahan: ' + error.message;
-                loginAlert.style.display = 'block';
-            } finally {
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '🔐 Masuk ke Dashboard';
-            }
-        }
-
-        // Test API Function
-        async function testAPI() {
-            const loginAlert = document.getElementById('loginAlert');
-            loginAlert.style.display = 'none';
-            
-            try {
-                console.log('Testing API connection...');
-                
-                const response = await fetch(`${API_URL}?action=test`);
-                const result = await response.json();
-                
-                console.log('API Test Result:', result);
-                
-                loginAlert.className = 'alert success';
-                loginAlert.innerHTML = '✅ API Connected! Message: ' + result.message;
-                loginAlert.style.display = 'block';
-            } catch (error) {
-                console.error('API Test Error:', error);
-                
-                loginAlert.className = 'alert error';
-                loginAlert.innerHTML = '❌ API Error: ' + error.message;
-                loginAlert.style.display = 'block';
-            }
+            }, 800); // Delay 800ms
         }
 
         // Check if already logged in
