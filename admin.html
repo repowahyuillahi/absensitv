@@ -674,53 +674,65 @@
         };
 
         // Handle Login
-        async function handleLogin(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            const loginBtn = document.getElementById('loginBtn');
-            const loginAlert = document.getElementById('loginAlert');
-            
-            loginBtn.disabled = true;
-            loginBtn.textContent = '⏳ Memproses...';
-            loginAlert.style.display = 'none';
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    const loginBtn = document.getElementById('loginBtn');
+    const loginAlert = document.getElementById('loginAlert');
+    
+    loginBtn.disabled = true;
+    loginBtn.textContent = '⏳ Memproses...';
+    loginAlert.style.display = 'none';
 
-            try {
-                const response = await fetch(`${API_URL}?action=login`, {
-                    method: 'POST',
-                    body: JSON.stringify({ username, password })
-                });
-                
-                const result = await response.json();
-                
-                if (result.status === 'success') {
-                    // Save to session
-                    sessionStorage.setItem('loggedInUser', JSON.stringify(result.data));
-                    
-                    // Show success
-                    loginAlert.className = 'login-alert success';
-                    loginAlert.textContent = '✅ Login berhasil! Memuat halaman...';
-                    loginAlert.style.display = 'block';
-                    
-                    // Redirect to admin
-                    setTimeout(() => {
-                        showAdminPage(result.data);
-                    }, 1000);
-                } else {
-                    loginAlert.className = 'login-alert error';
-                    loginAlert.textContent = '❌ ' + result.message;
-                    loginAlert.style.display = 'block';
-                }
-            } catch (error) {
-                loginAlert.className = 'login-alert error';
-                loginAlert.textContent = '❌ Terjadi kesalahan: ' + error.message;
-                loginAlert.style.display = 'block';
-            } finally {
-                loginBtn.disabled = false;
-                loginBtn.textContent = '🔐 Login';
-            }
+    try {
+        console.log('Attempting login with:', username); // Debug log
+        
+        const response = await fetch(`${API_URL}?action=login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                username: username, 
+                password: password 
+            })
+        });
+        
+        console.log('Response status:', response.status); // Debug log
+        
+        const result = await response.json();
+        console.log('Response result:', result); // Debug log
+        
+        if (result.status === 'success') {
+            // Save to session
+            sessionStorage.setItem('loggedInUser', JSON.stringify(result.data));
+            
+            // Show success
+            loginAlert.className = 'login-alert success';
+            loginAlert.textContent = '✅ Login berhasil! Memuat halaman...';
+            loginAlert.style.display = 'block';
+            
+            // Redirect to admin
+            setTimeout(() => {
+                showAdminPage(result.data);
+            }, 1000);
+        } else {
+            loginAlert.className = 'login-alert error';
+            loginAlert.textContent = '❌ ' + result.message;
+            loginAlert.style.display = 'block';
         }
+    } catch (error) {
+        console.error('Login error:', error); // Debug log
+        loginAlert.className = 'login-alert error';
+        loginAlert.textContent = '❌ Terjadi kesalahan: ' + error.message;
+        loginAlert.style.display = 'block';
+    } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = '🔐 Login';
+    }
+}
 
         // Show Admin Page
         function showAdminPage(userData) {
