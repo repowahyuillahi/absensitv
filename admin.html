@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Admin Panel - Tjahaja Baru</title>
+    <title>Dashboard Admin - Tjahaja Baru</title>
     <style>
         * {
             margin: 0;
@@ -12,28 +12,398 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #041066;
+            --primary-dark: #030d4d;
+            --secondary: #FFA500;
+            --bg-main: #F8F9FC;
+            --bg-card: #FFFFFF;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-logo {
+            width: 40px;
+            height: 40px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(4, 16, 102, 0.1);
+        }
+
+        .navbar-brand h1 {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .navbar-brand span {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: block;
+            font-weight: 400;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .btn-logout {
+            padding: 8px 16px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-logout:hover {
+            background: #DC2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== STATS CARDS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .stat-card.warning::before { background: var(--warning); }
+        .stat-card.success::before { background: var(--success); }
+        .stat-card.info::before { background: var(--info); }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: var(--bg-main);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab:hover {
+            background: var(--bg-main);
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
             padding: 20px;
         }
 
-        /* LOGIN PAGE */
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== FORM ===== */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .form-group label .required {
+            color: var(--danger);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            background: var(--bg-main);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
-            animation: slideDown 0.5s ease;
+            box-shadow: 0 0 0 3px rgba(4, 16, 102, 0.1);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(4, 16, 102, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #D97706;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #DC2626;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        /* ===== ALERTS ===== */
+        .alert {
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+            animation: slideDown 0.3s ease;
         }
 
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-10px);
             }
             to {
                 opacity: 1;
@@ -41,306 +411,19 @@
             }
         }
 
-        .login-header {
-            background: #041066;
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .login-header img {
-            height: 80px;
-            margin-bottom: 15px;
-        }
-
-        .login-header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .login-header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .login-body {
-            padding: 30px;
-        }
-
-        .login-form-group {
-            margin-bottom: 20px;
-        }
-
-        .login-form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .login-form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .login-form-group input:focus {
-            outline: none;
-            border-color: #041066;
-            box-shadow: 0 0 0 3px rgba(4,16,102,0.1);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            background: #041066;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .login-btn:hover {
-            background: #0520a8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(4,16,102,0.3);
-        }
-
-        .login-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .login-alert {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            font-size: 14px;
-        }
-
-        .login-alert.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .login-alert.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        /* ADMIN PAGE */
-        .admin-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
-            display: none;
-        }
-
-        .header {
-            background: #041066;
-            color: white;
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-left h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .header-left p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .header-right {
-            text-align: right;
-        }
-
-        .user-info {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .logout-btn {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 500;
-            border: none;
-            background: transparent;
-            color: #666;
-            transition: all 0.3s;
-        }
-
-        .tab:hover {
-            background: #e9ecef;
-        }
-
-        .tab.active {
-            background: white;
-            color: #041066;
-            border-bottom: 3px solid #041066;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 30px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #041066;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 16px;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-primary {
-            background: #041066;
-            color: white;
-            width: 100%;
-        }
-
-        .btn-primary:hover {
-            background: #0520a8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(4,16,102,0.3);
-        }
-
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #218838;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
-        }
-
-        .btn-warning {
-            background: #ffc107;
-            color: #333;
-        }
-
-        .btn-warning:hover {
-            background: #e0a800;
-        }
-
-        .btn-small {
-            padding: 8px 16px;
-            font-size: 14px;
-        }
-
-        .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #D1FAE5;
+            color: #065F46;
+            border: 1px solid #6EE7B7;
         }
 
         .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: #FEE2E2;
+            color: #991B1B;
+            border: 1px solid #FCA5A5;
         }
 
+        /* ===== TABLE ===== */
         .table-container {
             overflow-x: auto;
             margin-top: 20px;
@@ -351,310 +434,495 @@
             border-collapse: collapse;
         }
 
+        table thead {
+            background: var(--bg-main);
+        }
+
         table th {
-            background: #041066;
-            color: white;
-            padding: 12px;
+            padding: 12px 16px;
             text-align: left;
             font-weight: 600;
+            font-size: 13px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
         }
 
         table td {
-            padding: 12px;
-            border-bottom: 1px solid #dee2e6;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        table tbody tr {
+            transition: background 0.2s;
         }
 
         table tbody tr:hover {
-            background: #f8f9fa;
+            background: var(--bg-main);
         }
 
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 600;
+            display: inline-block;
         }
 
-        .status-active {
-            background: #28a745;
-            color: white;
+        .badge-success {
+            background: #D1FAE5;
+            color: #065F46;
         }
 
-        .status-done {
-            background: #6c757d;
-            color: white;
+        .badge-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-danger {
+            background: #FEE2E2;
+            color: #991B1B;
         }
 
         .empty-state {
             text-align: center;
-            padding: 40px;
-            color: #999;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.3;
         }
 
         .loading {
             text-align: center;
-            padding: 20px;
-            color: #666;
+            padding: 40px;
+            color: var(--text-secondary);
         }
 
-        .link-display {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .link-display a {
-            color: #041066;
-            font-weight: 500;
-            word-break: break-all;
-        }
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .form-row {
+            .navbar-container {
+                padding: 0 16px;
+                height: 56px;
+            }
+
+            .navbar-brand h1 {
+                font-size: 16px;
+            }
+
+            .navbar-brand span {
+                display: none;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
 
             .tabs {
-                flex-direction: column;
+                overflow-x: auto;
             }
 
-            .tab {
-                border-bottom: 1px solid #dee2e6;
+            .form-row {
+                grid-template-columns: 1fr;
             }
 
-            .tab.active {
-                border-bottom: 3px solid #041066;
+            table {
+                font-size: 13px;
             }
 
-            .header {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
+            table th,
+            table td {
+                padding: 10px 12px;
             }
+        }
 
-            .header-right {
-                text-align: center;
-            }
+        /* ===== QUICK ACTIONS ===== */
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--primary);
+            background: var(--bg-main);
+        }
+
+        .quick-action-btn .icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .quick-action-btn .label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
         }
     </style>
 </head>
 <body>
 
-    <!-- LOGIN PAGE -->
-    <div class="login-container" id="loginPage">
-        <div class="login-header">
-            <img src="logo.png" alt="Tjahaja Baru Logo">
-            <h1>Admin Panel</h1>
-            <p>Sistem Absensi & Informasi Digital</p>
-        </div>
-        <div class="login-body">
-            <div class="login-alert" id="loginAlert"></div>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="login-form-group">
-                    <label>Username</label>
-                    <input type="text" id="loginUsername" required placeholder="Masukkan username">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <img src="assets/img/logo.png" alt="Logo" class="navbar-logo">
+                <div>
+                    <h1>Tjahaja Baru</h1>
+                    <span>Admin Dashboard</span>
                 </div>
-                <div class="login-form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" required placeholder="Masukkan password">
-                </div>
-                <button type="submit" class="login-btn" id="loginBtn">
-                    🔐 Login
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ADMIN PAGE -->
-    <div class="admin-container" id="adminPage">
-        <div class="header">
-            <div class="header-left">
-                <h1>🎛️ Admin Panel</h1>
-                <p>Sistem Absensi & Informasi Digital Tjahaja Baru</p>
             </div>
-            <div class="header-right">
+            <div class="navbar-user">
                 <div class="user-info">
-                    Selamat datang, <strong id="userName">Admin</strong>
+                    <div class="user-name" id="userName">Administrator</div>
+                    <div class="user-role">Admin</div>
                 </div>
-                <button class="logout-btn" onclick="handleLogout()">
-                    🚪 Logout
+                <button class="btn-logout" onclick="handleLogout()">
+                    <span>🚪</span> Logout
                 </button>
             </div>
         </div>
+    </nav>
 
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <h2>Dashboard</h2>
+            <p>Kelola data absensi dan informasi karyawan</p>
+        </div>
+
+        <!-- STATS CARDS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">🏢</div>
+                </div>
+                <div class="stat-label">Out Off Office Hari Ini</div>
+                <div class="stat-value" id="statOutToday">0</div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-header">
+                    <div class="stat-icon">📋</div>
+                </div>
+                <div class="stat-label">Belum Pulang</div>
+                <div class="stat-value" id="statBelumPulang">0</div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-header">
+                    <div class="stat-icon">✈️</div>
+                </div>
+                <div class="stat-label">Cuti / Dinas Aktif</div>
+                <div class="stat-value" id="statCutiAktif">0</div>
+            </div>
+
+            <div class="stat-card info">
+                <div class="stat-header">
+                    <div class="stat-icon">📊</div>
+                </div>
+                <div class="stat-label">Total Data Bulan Ini</div>
+                <div class="stat-value" id="statBulanIni">0</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('out')">📋 Out Off Office</button>
-            <button class="tab" onclick="switchTab('others')">📝 Others (Cuti)</button>
+            <button class="tab active" onclick="switchTab('dashboard')">🏠 Dashboard</button>
+            <button class="tab" onclick="switchTab('out')">📋 Out Off Office</button>
+            <button class="tab" onclick="switchTab('others')">✈️ Others (Cuti)</button>
             <button class="tab" onclick="switchTab('pesan')">💬 Pesan Display</button>
             <button class="tab" onclick="switchTab('riwayat')">📊 Riwayat</button>
         </div>
 
-        <!-- Tab Out Off Office -->
-        <div id="tab-out" class="tab-content active">
-            <h2>Input Out Off Office</h2>
-            <div id="alert-out" class="alert"></div>
-            
-            <form id="form-out" onsubmit="submitOutOffOffice(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nama Karyawan *</label>
-                        <input type="text" id="out-nama" required placeholder="Contoh: Okhan Farlian">
-                    </div>
-                    <div class="form-group">
-                        <label>Perusahaan *</label>
-                        <input type="text" id="out-perusahaan" required placeholder="Contoh: Tjahaja Baru">
+        <!-- TAB CONTENT: DASHBOARD -->
+        <div id="tab-dashboard" class="tab-content active">
+            <div class="quick-actions">
+                <div class="quick-action-btn" onclick="switchTab('out')">
+                    <div class="icon">📝</div>
+                    <div class="label">Input Keluar</div>
+                </div>
+                <div class="quick-action-btn" onclick="switchTab('others')">
+                    <div class="icon">✈️</div>
+                    <div class="label">Input Cuti</div>
+                </div>
+                <div class="quick-action-btn" onclick="switchTab('pesan')">
+                    <div class="icon">💬</div>
+                    <div class="label">Edit Pesan</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Yang Belum Pulang Hari Ini</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Perusahaan</th>
+                                    <th>Jam Pergi</th>
+                                    <th>Tujuan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboardTableBody">
+                                <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Jam Pergi *</label>
-                        <input type="time" id="out-jam-pergi" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal</label>
-                        <input type="date" id="out-tanggal">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Tujuan *</label>
-                    <input type="text" id="out-tujuan" required placeholder="Contoh: CSA Banjir Di UIN">
-                </div>
-
-                <button type="submit" class="btn btn-primary">💾 Simpan Data</button>
-            </form>
-
-            <div class="table-container">
-                <h3 style="margin-top: 30px; margin-bottom: 15px;">Yang Belum Pulang Hari Ini</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Perusahaan</th>
-                            <th>Jam Pergi</th>
-                            <th>Tujuan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-out-active">
-                        <tr class="loading"><td colspan="5">Memuat data...</td></tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
-        <!-- Tab Others -->
+        <!-- TAB CONTENT: OUT OFF OFFICE -->
+        <div id="tab-out" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Input Out Off Office</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert" id="alert-out"></div>
+                    
+                    <form id="form-out" onsubmit="submitOutOffOffice(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nama Karyawan <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="out-nama" required placeholder="Nama lengkap">
+                            </div>
+                            <div class="form-group">
+                                <label>Perusahaan <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="out-perusahaan" required placeholder="Nama perusahaan">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jam Pergi <span class="required">*</span></label>
+                                <input type="time" class="form-control" id="out-jam-pergi" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal</label>
+                                <input type="date" class="form-control" id="out-tanggal">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tujuan <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="out-tujuan" required placeholder="Tujuan/keperluan keluar">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            💾 Simpan Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Yang Belum Pulang Hari Ini</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Perusahaan</th>
+                                    <th>Jam Pergi</th>
+                                    <th>Tujuan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-out-active">
+                                <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: OTHERS -->
         <div id="tab-others" class="tab-content">
-            <h2>Input Others (Cuti/Dinas Luar Kota)</h2>
-            <div id="alert-others" class="alert"></div>
-            
-            <form id="form-others" onsubmit="submitOthers(event)">
-                <div class="form-group">
-                    <label>Nama Karyawan *</label>
-                    <input type="text" id="others-nama" required placeholder="Contoh: Try Rina Hasan">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Input Others (Cuti/Dinas Luar Kota)</h3>
                 </div>
+                <div class="card-body">
+                    <div class="alert" id="alert-others"></div>
+                    
+                    <form id="form-others" onsubmit="submitOthers(event)">
+                        <div class="form-group">
+                            <label>Nama Karyawan <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="others-nama" required placeholder="Nama lengkap">
+                        </div>
 
-                <div class="form-group">
-                    <label>Keterangan *</label>
-                    <input type="text" id="others-keterangan" required placeholder="Contoh: Cuti / Dinas Luar Kota">
+                        <div class="form-group">
+                            <label>Keterangan <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="others-keterangan" required placeholder="Cuti / Dinas Luar Kota / dll">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tanggal Mulai <span class="required">*</span></label>
+                                <input type="date" class="form-control" id="others-tanggal-mulai" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Selesai <span class="required">*</span></label>
+                                <input type="date" class="form-control" id="others-tanggal-selesai" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            💾 Simpan Data
+                        </button>
+                    </form>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tanggal Mulai *</label>
-                        <input type="date" id="others-tanggal-mulai" required>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Data Cuti/Dinas Aktif</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Selesai</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-others-active">
+                                <tr class="loading"><td colspan="4">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="form-group">
-                        <label>Tanggal Selesai *</label>
-                        <input type="date" id="others-tanggal-selesai" required>
-                    </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">💾 Simpan Data</button>
-            </form>
-
-            <div class="table-container">
-                <h3 style="margin-top: 30px; margin-bottom: 15px;">Data Cuti/Dinas Aktif</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal Mulai</th>
-                            <th>Tanggal Selesai</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-others-active">
-                        <tr class="loading"><td colspan="4">Memuat data...</td></tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
-        <!-- Tab Pesan Display -->
+        <!-- TAB CONTENT: PESAN DISPLAY -->
         <div id="tab-pesan" class="tab-content">
-            <h2>Kelola Pesan Display (Teks Berjalan)</h2>
-            <div id="alert-pesan" class="alert"></div>
-            
-            <div id="pesan-list"></div>
-            
-            <button class="btn btn-success" onclick="addPesanField()" style="margin-top: 15px; margin-bottom: 15px;">➕ Tambah Pesan</button>
-            
-            <button class="btn btn-primary" onclick="submitPesan()">💾 Simpan Semua Pesan</button>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Kelola Pesan Display (Teks Berjalan)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert" id="alert-pesan"></div>
+                    
+                    <div id="pesan-list"></div>
+                    
+                    <button class="btn btn-success" onclick="addPesanField()" style="margin: 15px 0;">
+                        ➕ Tambah Pesan
+                    </button>
+                    
+                    <button class="btn btn-primary btn-block" onclick="submitPesan()">
+                        💾 Simpan Semua Pesan
+                    </button>
 
-            <div class="link-display">
-                <strong>🔗 Link Display untuk TV:</strong><br>
-                <a href="index.html" target="_blank" id="link-display">index.html</a>
+                    <div style="margin-top: 24px; padding: 16px; background: var(--bg-main); border-radius: 8px;">
+                        <strong style="color: var(--text-primary);">🔗 Link Display untuk TV:</strong><br>
+                        <a href="index.html" target="_blank" id="link-display" style="color: var(--primary); word-break: break-all;">index.html</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Tab Riwayat -->
+        <!-- TAB CONTENT: RIWAYAT -->
         <div id="tab-riwayat" class="tab-content">
-            <h2>Riwayat Data</h2>
-            
-            <div class="form-group">
-                <label>Filter Tanggal</label>
-                <input type="date" id="filter-tanggal" onchange="loadRiwayat()">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Filter Riwayat</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Filter Tanggal</label>
+                        <input type="date" class="form-control" id="filter-tanggal" onchange="loadRiwayat()">
+                    </div>
+                </div>
             </div>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Out Off Office</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Nama</th>
-                            <th>Perusahaan</th>
-                            <th>Jam Pergi</th>
-                            <th>Jam Pulang</th>
-                            <th>Tujuan</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-riwayat-out">
-                        <tr class="loading"><td colspan="7">Memuat data...</td></tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Riwayat Out Off Office</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama</th>
+                                    <th>Perusahaan</th>
+                                    <th>Jam Pergi</th>
+                                    <th>Jam Pulang</th>
+                                    <th>Tujuan</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-riwayat-out">
+                                <tr class="loading"><td colspan="7">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Others</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal Mulai</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-riwayat-others">
-                        <tr class="loading"><td colspan="5">Memuat data...</td></tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Riwayat Others</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Selesai</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-riwayat-others">
+                                <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -664,104 +932,37 @@
         // **GANTI DENGAN WEB APP URL ANDA**
         const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
-        // Check if already logged in
+        // Check Authentication
         window.onload = function() {
             const loggedInUser = sessionStorage.getItem('loggedInUser');
-            if (loggedInUser) {
-                const userData = JSON.parse(loggedInUser);
-                showAdminPage(userData);
+            if (!loggedInUser) {
+                window.location.href = 'login.html';
+                return;
             }
-        };
 
-        // Handle Login
-async function handleLogin(e) {
-    e.preventDefault();
-    
-    const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
-    const loginBtn = document.getElementById('loginBtn');
-    const loginAlert = document.getElementById('loginAlert');
-    
-    loginBtn.disabled = true;
-    loginBtn.textContent = '⏳ Memproses...';
-    loginAlert.style.display = 'none';
-
-    try {
-        console.log('Attempting login with:', username); // Debug log
-        
-        const response = await fetch(`${API_URL}?action=login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                username: username, 
-                password: password 
-            })
-        });
-        
-        console.log('Response status:', response.status); // Debug log
-        
-        const result = await response.json();
-        console.log('Response result:', result); // Debug log
-        
-        if (result.status === 'success') {
-            // Save to session
-            sessionStorage.setItem('loggedInUser', JSON.stringify(result.data));
-            
-            // Show success
-            loginAlert.className = 'login-alert success';
-            loginAlert.textContent = '✅ Login berhasil! Memuat halaman...';
-            loginAlert.style.display = 'block';
-            
-            // Redirect to admin
-            setTimeout(() => {
-                showAdminPage(result.data);
-            }, 1000);
-        } else {
-            loginAlert.className = 'login-alert error';
-            loginAlert.textContent = '❌ ' + result.message;
-            loginAlert.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Login error:', error); // Debug log
-        loginAlert.className = 'login-alert error';
-        loginAlert.textContent = '❌ Terjadi kesalahan: ' + error.message;
-        loginAlert.style.display = 'block';
-    } finally {
-        loginBtn.disabled = false;
-        loginBtn.textContent = '🔐 Login';
-    }
-}
-
-        // Show Admin Page
-        function showAdminPage(userData) {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('adminPage').style.display = 'block';
+            const userData = JSON.parse(loggedInUser);
             document.getElementById('userName').textContent = userData.nama;
-            
-            // Load initial data
-            loadActiveOut();
-            
+
             // Set default dates
             document.getElementById('out-tanggal').value = new Date().toISOString().split('T')[0];
             document.getElementById('out-jam-pergi').value = new Date().toTimeString().slice(0,5);
             document.getElementById('filter-tanggal').value = new Date().toISOString().split('T')[0];
-            
+
             // Set display link
             const currentUrl = window.location.href;
             const displayUrl = currentUrl.replace('admin.html', 'index.html');
             document.getElementById('link-display').href = displayUrl;
             document.getElementById('link-display').textContent = displayUrl;
-        }
+
+            // Load initial data
+            loadDashboard();
+        };
 
         // Handle Logout
         function handleLogout() {
             if (confirm('Yakin ingin logout?')) {
                 sessionStorage.removeItem('loggedInUser');
-                document.getElementById('adminPage').style.display = 'none';
-                document.getElementById('loginPage').style.display = 'block';
-                document.getElementById('loginForm').reset();
+                window.location.href = 'login.html';
             }
         }
 
@@ -777,7 +978,9 @@ async function handleLogin(e) {
             document.getElementById('tab-' + tabName).classList.add('active');
             event.target.classList.add('active');
 
-            if (tabName === 'out') {
+            if (tabName === 'dashboard') {
+                loadDashboard();
+            } else if (tabName === 'out') {
                 loadActiveOut();
             } else if (tabName === 'others') {
                 loadActiveOthers();
@@ -785,6 +988,76 @@ async function handleLogin(e) {
                 loadPesan();
             } else if (tabName === 'riwayat') {
                 loadRiwayat();
+            }
+        }
+
+        // Load Dashboard
+        async function loadDashboard() {
+            await loadStats();
+            await loadDashboardTable();
+        }
+
+        // Load Stats
+        async function loadStats() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                
+                // Get Out Off Office
+                const responseOut = await fetch(`${API_URL}?action=getOutOffOffice&tanggal=${today}`);
+                const resultOut = await responseOut.json();
+                
+                if (resultOut.status === 'success') {
+                    document.getElementById('statOutToday').textContent = resultOut.data.length;
+                    document.getElementById('statBelumPulang').textContent = resultOut.data.length;
+                }
+
+                // Get Others
+                const responseOthers = await fetch(`${API_URL}?action=getOthers`);
+                const resultOthers = await responseOthers.json();
+                
+                if (resultOthers.status === 'success') {
+                    document.getElementById('statCutiAktif').textContent = resultOthers.data.length;
+                }
+
+                // TODO: Get total bulan ini (perlu endpoint baru di Apps Script)
+                document.getElementById('statBulanIni').textContent = '—';
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Load Dashboard Table
+        async function loadDashboardTable() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const response = await fetch(`${API_URL}?action=getOutOffOffice&tanggal=${today}`);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('dashboardTableBody');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td><strong>${item.nama}</strong></td>
+                            <td>${item.perusahaan}</td>
+                            <td><span class="badge badge-warning">${item.jam_pergi}</span></td>
+                            <td>${item.tujuan}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="markAsPulang('${item.nama}', '${item.tanggal}')">
+                                    ✓ Pulang
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-state-icon">✅</div><div>Tidak ada yang belum pulang</div></td></tr>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
         }
 
@@ -826,11 +1099,81 @@ async function handleLogin(e) {
                     document.getElementById('out-tanggal').value = new Date().toISOString().split('T')[0];
                     document.getElementById('out-jam-pergi').value = new Date().toTimeString().slice(0,5);
                     loadActiveOut();
+                    loadStats();
                 } else {
                     showAlert('alert-out', '❌ Error: ' + result.message, 'error');
                 }
             } catch (error) {
                 showAlert('alert-out', '❌ Error: ' + error.message, 'error');
+            }
+        }
+
+        // Mark as Pulang
+        async function markAsPulang(nama, tanggal) {
+            const jamPulang = prompt('Jam pulang (HH:MM):', new Date().toTimeString().slice(0,5));
+            
+            if (!jamPulang) return;
+
+            const formData = new URLSearchParams();
+            formData.append('nama', nama);
+            formData.append('tanggal', tanggal);
+            formData.append('jam_pulang', jamPulang);
+
+            try {
+                const response = await fetch(`${API_URL}?action=updatePulang`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        nama: nama,
+                        tanggal: tanggal,
+                        jam_pulang: jamPulang
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert('✅ Status berhasil diupdate!');
+                    loadDashboard();
+                    loadActiveOut();
+                } else {
+                    alert('❌ Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Load Active Out
+        async function loadActiveOut() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const response = await fetch(`${API_URL}?action=getOutOffOffice&tanggal=${today}`);
+                const result = await response.json();
+                
+                const tbody = document.getElementById('tbody-out-active');
+                tbody.innerHTML = '';
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    result.data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td><strong>${item.nama}</strong></td>
+                            <td>${item.perusahaan}</td>
+                            <td><span class="badge badge-warning">${item.jam_pergi}</span></td>
+                            <td>${item.tujuan}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="markAsPulang('${item.nama}', '${item.tanggal}')">
+                                    ✓ Pulang
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-state-icon">✅</div><div>Tidak ada yang belum pulang</div></td></tr>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
         }
 
@@ -857,76 +1200,12 @@ async function handleLogin(e) {
                     showAlert('alert-others', '✅ Data berhasil disimpan!', 'success');
                     document.getElementById('form-others').reset();
                     loadActiveOthers();
+                    loadStats();
                 } else {
                     showAlert('alert-others', '❌ Error: ' + result.message, 'error');
                 }
             } catch (error) {
                 showAlert('alert-others', '❌ Error: ' + error.message, 'error');
-            }
-        }
-
-        // Load Active Out Off Office
-        async function loadActiveOut() {
-            try {
-                const today = new Date().toISOString().split('T')[0];
-                const response = await fetch(`${API_URL}?action=getOutOffOffice&tanggal=${today}`);
-                const result = await response.json();
-                
-                const tbody = document.getElementById('tbody-out-active');
-                tbody.innerHTML = '';
-
-                if (result.status === 'success' && result.data.length > 0) {
-                    result.data.forEach(item => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${item.nama}</td>
-                            <td>${item.perusahaan}</td>
-                            <td>${item.jam_pergi}</td>
-                            <td>${item.tujuan}</td>
-                            <td>
-                                <button class="btn btn-warning btn-small" onclick="markAsPulang('${item.nama}', '${item.tanggal}')">
-                                    ✓ Tandai Pulang
-                                </button>
-                            </td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Tidak ada data yang belum pulang</td></tr>';
-                }
-            } catch (error) {
-                console.error('Error loading active out:', error);
-            }
-        }
-
-        // Mark as Pulang
-        async function markAsPulang(nama, tanggal) {
-            const jamPulang = prompt('Jam pulang (HH:MM):', new Date().toTimeString().slice(0,5));
-            
-            if (!jamPulang) return;
-
-            const data = {
-                nama: nama,
-                tanggal: tanggal,
-                jam_pulang: jamPulang
-            };
-
-            try {
-                const response = await fetch(`${API_URL}?action=updatePulang`, {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                });
-                
-                const result = await response.json();
-                
-                if (result.status === 'success') {
-                    alert('✅ Status berhasil diupdate!');
-                    loadActiveOut();
-                } else {
-                    alert('❌ Error: ' + result.message);
-                }
-            } catch (error) {
-                alert('❌ Error: ' + error.message);
             }
         }
 
@@ -943,18 +1222,18 @@ async function handleLogin(e) {
                     result.data.forEach(item => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>${item.nama}</td>
+                            <td><strong>${item.nama}</strong></td>
                             <td>${item.keterangan}</td>
-                            <td>${item.tanggal_mulai}</td>
-                            <td>${item.tanggal_selesai}</td>
+                            <td><span class="badge badge-warning">${item.tanggal_mulai}</span></td>
+                            <td><span class="badge badge-warning">${item.tanggal_selesai}</span></td>
                         `;
                         tbody.appendChild(tr);
                     });
                 } else {
-                    tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Tidak ada data cuti/dinas aktif</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" class="empty-state"><div class="empty-state-icon">✅</div><div>Tidak ada cuti/dinas aktif</div></td></tr>';
                 }
             } catch (error) {
-                console.error('Error loading active others:', error);
+                console.error('Error:', error);
             }
         }
 
@@ -968,14 +1247,14 @@ async function handleLogin(e) {
                 container.innerHTML = '';
 
                 if (result.status === 'success' && result.data.length > 0) {
-                    result.data.forEach((msg, index) => {
+                    result.data.forEach(msg => {
                         addPesanField(msg);
                     });
                 } else {
                     addPesanField('');
                 }
             } catch (error) {
-                console.error('Error loading pesan:', error);
+                console.error('Error:', error);
             }
         }
 
@@ -985,11 +1264,12 @@ async function handleLogin(e) {
             const div = document.createElement('div');
             div.className = 'form-group';
             div.innerHTML = `
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" class="pesan-input" value="${value}" 
-                           placeholder="Masukkan teks pesan yang akan ditampilkan..."
-                           style="flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px;">
-                    <button class="btn btn-danger btn-small" onclick="this.parentElement.parentElement.remove()">🗑️ Hapus</button>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" class="form-control pesan-input" value="${value}" 
+                           placeholder="Masukkan teks pesan..." style="flex: 1;">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.parentElement.remove()">
+                        🗑️ Hapus
+                    </button>
                 </div>
             `;
             container.appendChild(div);
@@ -1011,12 +1291,10 @@ async function handleLogin(e) {
                 return;
             }
 
-            const data = { messages: messages };
-
             try {
                 const response = await fetch(`${API_URL}?action=savePesan`, {
                     method: 'POST',
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({ messages: messages })
                 });
                 
                 const result = await response.json();
@@ -1049,23 +1327,24 @@ async function handleLogin(e) {
 
                 if (result.status === 'success' && result.data.length > 0) {
                     result.data.forEach(item => {
+                        const statusClass = item.status === 'Sudah Pulang' ? 'badge-success' : 'badge-danger';
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
                             <td>${item.tanggal}</td>
-                            <td>${item.nama}</td>
+                            <td><strong>${item.nama}</strong></td>
                             <td>${item.perusahaan}</td>
                             <td>${item.jam_pergi}</td>
                             <td>${item.jam_pulang}</td>
                             <td>${item.tujuan}</td>
-                            <td><span class="status-badge ${item.status === 'Sudah Pulang' ? 'status-done' : 'status-active'}">${item.status}</span></td>
+                            <td><span class="badge ${statusClass}">${item.status}</span></td>
                         `;
                         tbody.appendChild(tr);
                     });
                 } else {
-                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Tidak ada data riwayat</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><div class="empty-state-icon">📊</div><div>Tidak ada data</div></td></tr>';
                 }
             } catch (error) {
-                console.error('Error loading riwayat out:', error);
+                console.error('Error:', error);
             }
 
             // Load Riwayat Others
@@ -1082,21 +1361,22 @@ async function handleLogin(e) {
 
                 if (result.status === 'success' && result.data.length > 0) {
                     result.data.forEach(item => {
+                        const statusClass = item.status === 'Selesai' ? 'badge-success' : 'badge-warning';
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>${item.nama}</td>
+                            <td><strong>${item.nama}</strong></td>
                             <td>${item.keterangan}</td>
                             <td>${item.tanggal_mulai}</td>
                             <td>${item.tanggal_selesai}</td>
-                            <td><span class="status-badge ${item.status === 'Selesai' ? 'status-done' : 'status-active'}">${item.status}</span></td>
+                            <td><span class="badge ${statusClass}">${item.status}</span></td>
                         `;
                         tbody.appendChild(tr);
                     });
                 } else {
-                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Tidak ada data riwayat</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-state-icon">📊</div><div>Tidak ada data</div></td></tr>';
                 }
             } catch (error) {
-                console.error('Error loading riwayat others:', error);
+                console.error('Error:', error);
             }
         }
     </script>
