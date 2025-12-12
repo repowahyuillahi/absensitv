@@ -12,19 +12,9 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #041066;
-            --secondary: #FFA500;
-            --bg-main: #F8F9FC;
-            --bg-card: #FFFFFF;
-            --text-primary: #1E293B;
-            --text-secondary: #64748B;
-            --border: #E2E8F0;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-main);
+            background: #FFFFFF;
             overflow: hidden;
             height: 100vh;
         }
@@ -34,7 +24,6 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            background: white;
         }
 
         /* ===== HEADER ===== */
@@ -42,41 +31,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(16px, 2vh, 24px) clamp(24px, 3vw, 48px);
-            background: var(--primary);
-            color: white;
+            padding: 20px 40px;
+            background: #FFFFFF;
+            border-bottom: 3px solid #041066;
             flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(4, 16, 102, 0.15);
-            position: relative;
         }
 
         .date-display {
-            font-size: clamp(18px, 2.5vw, 32px);
+            font-size: 28px;
             font-weight: 600;
-            color: white;
-            letter-spacing: -0.3px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            color: #1E293B;
         }
 
         .logo-wrapper {
-            background: white;
-            width: clamp(60px, 7vh, 90px);
-            height: clamp(60px, 7vh, 90px);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: 70px;
         }
 
         .logo-wrapper img {
-            width: 100%;
             height: 100%;
             object-fit: contain;
         }
@@ -84,18 +55,19 @@
         /* ===== STATUS INDICATOR ===== */
         .status-indicator {
             position: fixed;
-            bottom: clamp(80px, 9vh, 100px);
-            left: clamp(16px, 2vw, 24px);
+            bottom: 90px;
+            left: 24px;
             display: flex;
             align-items: center;
             gap: 8px;
             background: white;
             padding: 8px 16px;
             border-radius: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1000;
-            font-size: clamp(11px, 1.2vw, 14px);
+            font-size: 13px;
             font-weight: 600;
+            border: 2px solid #E2E8F0;
         }
 
         .status-dot {
@@ -124,35 +96,32 @@
         /* ===== MAIN CONTENT ===== */
         .content {
             flex: 1;
-            padding: clamp(16px, 2vh, 24px) clamp(16px, 2vw, 32px);
-            overflow: hidden;
+            padding: 24px 40px;
+            overflow: auto;
             display: flex;
             flex-direction: column;
+            gap: 24px;
+            background: #FFFFFF;
             min-height: 0;
-            gap: clamp(16px, 2vh, 24px);
         }
 
-        /* ===== SECTION ===== */
-        .section {
-            background: var(--bg-card);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border: 1px solid var(--border);
-        }
-
+        /* ===== SECTION TITLE ===== */
         .section-title {
-            background: var(--primary);
+            background: #041066;
             color: white;
             text-align: center;
-            padding: clamp(12px, 2vh, 18px);
-            font-size: clamp(16px, 2.2vw, 26px);
+            padding: 14px;
+            font-size: 22px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            border-radius: 4px 4px 0 0;
         }
 
-        /* ===== OUT SECTION ===== */
-        .out-section {
+        /* ===== TABLE SECTION ===== */
+        .table-section {
+            border: 2px solid #041066;
+            border-radius: 4px;
+            overflow: hidden;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -160,50 +129,35 @@
         }
 
         .table-wrapper {
-            flex: 1;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: auto;
+            flex: 1;
             min-height: 0;
         }
 
-        /* ===== TABLE ===== */
+        /* ===== TABLE STYLES ===== */
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed;
+            background: white;
         }
 
         table thead {
-            background: var(--primary);
+            background: #041066;
             color: white;
-            display: table;
-            width: 100%;
-            table-layout: fixed;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
-        table tbody {
-            display: block;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        table tbody tr {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-        }
-
         table th {
-            padding: clamp(14px, 2.2vh, 20px) clamp(12px, 1.8vw, 18px);
-            font-weight: 600;
+            padding: 14px 16px;
+            font-weight: 700;
             text-align: center;
-            font-size: clamp(13px, 1.8vw, 20px);
-            border-right: 1px solid rgba(255,255,255,0.2);
+            font-size: 16px;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
             letter-spacing: 0.3px;
-            white-space: nowrap;
+            text-transform: uppercase;
         }
 
         table th:last-child {
@@ -211,31 +165,24 @@
         }
 
         table tbody tr {
-            transition: background 0.2s ease;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #E2E8F0;
         }
 
         table tbody tr:nth-child(odd) {
-            background: #F8F9FC;
+            background: #DBEAFE;
         }
 
         table tbody tr:nth-child(even) {
             background: #FFFFFF;
         }
 
-        table tbody tr:hover {
-            background: #E8EEF7 !important;
-        }
-
         table td {
-            padding: clamp(14px, 2.2vh, 18px) clamp(12px, 1.8vw, 16px);
+            padding: 12px 16px;
             text-align: center;
-            font-size: clamp(12px, 1.7vw, 18px);
-            color: var(--text-primary);
+            font-size: 15px;
+            color: #1E293B;
             font-weight: 500;
-            border-right: 1px solid var(--border);
-            word-wrap: break-word;
-            overflow: hidden;
+            border-right: 1px solid #E2E8F0;
         }
 
         table td:last-child {
@@ -244,86 +191,97 @@
 
         table td:first-child {
             font-weight: 700;
-            color: var(--primary);
+            color: #041066;
         }
 
         /* Column Widths - Out Off Office */
-        .out-section table th:nth-child(1),
-        .out-section table td:nth-child(1) { width: 5%; }
+        .out-table th:nth-child(1),
+        .out-table td:nth-child(1) { width: 5%; }
 
-        .out-section table th:nth-child(2),
-        .out-section table td:nth-child(2) { width: 23%; }
+        .out-table th:nth-child(2),
+        .out-table td:nth-child(2) { width: 23%; }
 
-        .out-section table th:nth-child(3),
-        .out-section table td:nth-child(3) { width: 23%; }
+        .out-table th:nth-child(3),
+        .out-table td:nth-child(3) { width: 23%; }
 
-        .out-section table th:nth-child(4),
-        .out-section table td:nth-child(4) { width: 12%; }
+        .out-table th:nth-child(4),
+        .out-table td:nth-child(4) { width: 12%; }
 
-        .out-section table th:nth-child(5),
-        .out-section table td:nth-child(5) { width: 37%; }
+        .out-table th:nth-child(5),
+        .out-table td:nth-child(5) { width: 37%; }
 
         /* ===== OTHERS SECTION ===== */
         .others-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: clamp(16px, 2vw, 24px);
+            gap: 24px;
             flex: 0 0 auto;
-            max-height: 30vh;
         }
 
         .others-section {
+            border: 2px solid #041066;
+            border-radius: 4px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 0;
+        }
+
+        .others-section .table-wrapper {
+            max-height: 250px;
         }
 
         /* Column Widths - Others */
-        .others-section table th:nth-child(1),
-        .others-section table td:nth-child(1) { width: 12%; }
+        .others-table th:nth-child(1),
+        .others-table td:nth-child(1) { width: 12%; }
 
-        .others-section table th:nth-child(2),
-        .others-section table td:nth-child(2) { width: 40%; }
+        .others-table th:nth-child(2),
+        .others-table td:nth-child(2) { width: 40%; }
 
-        .others-section table th:nth-child(3),
-        .others-section table td:nth-child(3) { width: 48%; }
+        .others-table th:nth-child(3),
+        .others-table td:nth-child(3) { width: 48%; }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-row td {
+            color: #94A3B8 !important;
+            font-style: italic;
+            font-weight: 400 !important;
+        }
 
         /* ===== FOOTER ===== */
         .footer {
             flex-shrink: 0;
-            background: var(--primary);
+            background: #041066;
             color: white;
             display: flex;
             align-items: center;
-            padding: clamp(12px, 2vh, 18px) clamp(20px, 2vw, 32px);
-            height: clamp(56px, 7vh, 70px);
-            box-shadow: 0 -4px 12px rgba(4, 16, 102, 0.1);
+            padding: 16px 32px;
+            height: 70px;
+            box-shadow: 0 -4px 12px rgba(4, 16, 102, 0.15);
+            border-top: 3px solid #FFA500;
         }
 
         .footer-time {
-            min-width: clamp(220px, 30vw, 450px);
+            min-width: 300px;
             font-weight: 700;
-            font-size: clamp(13px, 1.8vw, 20px);
-            color: var(--secondary);
-            padding-right: clamp(16px, 2vw, 24px);
+            font-size: 17px;
+            color: #FFA500;
+            padding-right: 24px;
             border-right: 2px solid rgba(255,255,255,0.3);
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             letter-spacing: 0.3px;
         }
 
         .footer-text {
             flex: 1;
             overflow: hidden;
-            margin-left: clamp(16px, 2vw, 24px);
+            margin-left: 24px;
         }
 
         .footer-marquee {
             display: inline-block;
             white-space: nowrap;
             animation: marquee 40s linear infinite;
-            font-size: clamp(13px, 1.8vw, 20px);
+            font-size: 17px;
             font-weight: 500;
             letter-spacing: 0.3px;
         }
@@ -335,50 +293,68 @@
 
         .footer-marquee span {
             display: inline-block;
-            margin-right: clamp(60px, 12vw, 150px);
-        }
-
-        /* ===== EMPTY STATE ===== */
-        .empty-row td {
-            color: var(--text-secondary) !important;
-            font-style: italic;
-            opacity: 0.6;
-        }
-
-        .loading {
-            text-align: center;
-            padding: clamp(16px, 3vh, 32px);
-            color: var(--text-secondary);
-            font-style: italic;
-            font-size: clamp(12px, 1.6vw, 16px);
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-main);
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #030d4d;
+            margin-right: 150px;
         }
 
         /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 16px 24px;
+            }
+
+            .date-display {
+                font-size: 22px;
+            }
+
+            .logo-wrapper {
+                height: 60px;
+            }
+
+            .content {
+                padding: 16px 24px;
+            }
+
+            .others-container {
+                grid-template-columns: 1fr;
+            }
+
+            table th,
+            table td {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                padding: 12px;
+            }
+
+            .footer {
+                padding: 12px 20px;
+                height: 60px;
+            }
+
+            .footer-time {
+                font-size: 15px;
+                min-width: 250px;
+            }
+
+            .footer-marquee {
+                font-size: 15px;
+            }
+
+            .status-indicator {
+                bottom: 75px;
+                left: 16px;
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
                 gap: 12px;
-                text-align: center;
                 padding: 16px 20px;
             }
 
@@ -387,13 +363,23 @@
             }
 
             .logo-wrapper {
-                width: 60px;
-                height: 60px;
+                height: 50px;
             }
 
-            .others-container {
-                grid-template-columns: 1fr;
-                max-height: 24vh;
+            .content {
+                padding: 12px 16px;
+                gap: 16px;
+            }
+
+            table th,
+            table td {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+            .section-title {
+                font-size: 16px;
+                padding: 10px;
             }
 
             .footer {
@@ -407,6 +393,7 @@
                 border-right: none;
                 border-bottom: 1px solid rgba(255,255,255,0.3);
                 padding-bottom: 10px;
+                padding-right: 0;
                 min-width: 100%;
                 text-align: center;
                 font-size: 14px;
@@ -422,54 +409,31 @@
             }
 
             .status-indicator {
-                bottom: 70px;
+                bottom: auto;
+                top: 90px;
                 left: 12px;
-                padding: 6px 12px;
                 font-size: 11px;
-            }
-
-            .out-section table th:nth-child(1),
-            .out-section table td:nth-child(1) { width: 8%; }
-            
-            .out-section table th:nth-child(2),
-            .out-section table td:nth-child(2) { width: 21%; }
-            
-            .out-section table th:nth-child(3),
-            .out-section table td:nth-child(3) { width: 21%; }
-            
-            .out-section table th:nth-child(4),
-            .out-section table td:nth-child(4) { width: 14%; }
-            
-            .out-section table th:nth-child(5),
-            .out-section table td:nth-child(5) { width: 36%; }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            table th, table td {
-                font-size: 15px;
-                padding: 14px 12px;
+                padding: 5px 10px;
             }
         }
 
-        @media (max-height: 500px) and (orientation: landscape) {
-            .header {
-                padding: 10px 20px;
-            }
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
 
-            .section-title {
-                padding: 8px;
-                font-size: 14px;
-            }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
 
-            table th, table td {
-                padding: 8px 10px;
-                font-size: 12px;
-            }
+        ::-webkit-scrollbar-thumb {
+            background: #041066;
+            border-radius: 5px;
+        }
 
-            .footer {
-                padding: 8px 16px;
-                height: 48px;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #030d4d;
         }
     </style>
 </head>
@@ -485,21 +449,19 @@
     <div class="container">
         <!-- HEADER -->
         <div class="header">
-            <div class="date-display" id="dateDisplay">Jumat, 12 Desember 2025</div>
-            <div class="logo-container">
-                <div class="logo-wrapper">
-                    <img src="assets/img/logo.png" alt="Tjahaja Baru Logo">
-                </div>
+            <div class="date-display" id="dateDisplay">Jum'at, 12 Desember 2025</div>
+            <div class="logo-wrapper">
+                <img src="assets/img/logo.png" alt="Tjahaja Baru Logo">
             </div>
         </div>
 
         <!-- CONTENT -->
         <div class="content">
             <!-- OUT OFF OFFICE TABLE -->
-            <div class="out-section section">
+            <div class="table-section">
                 <div class="section-title">Out Off Office</div>
                 <div class="table-wrapper">
-                    <table>
+                    <table class="out-table">
                         <thead>
                             <tr>
                                 <th>NO</th>
@@ -510,7 +472,7 @@
                             </tr>
                         </thead>
                         <tbody id="outOffOfficeBody">
-                            <tr class="loading"><td colspan="5">Memuat data...</td></tr>
+                            <tr><td colspan="5" style="padding: 30px; color: #94A3B8;">Memuat data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -518,37 +480,37 @@
 
             <!-- OTHERS SECTION -->
             <div class="others-container">
-                <div class="others-section section">
+                <div class="others-section">
                     <div class="section-title">Others</div>
                     <div class="table-wrapper">
-                        <table>
+                        <table class="others-table">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Keterangan</th>
+                                    <th>NO</th>
+                                    <th>NAMA</th>
+                                    <th>KETERANGAN</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody1">
-                                <tr class="loading"><td colspan="3">Memuat data...</td></tr>
+                                <tr><td colspan="3" style="padding: 20px; color: #94A3B8;">Memuat data...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <div class="others-section section">
+                <div class="others-section">
                     <div class="section-title">Others</div>
                     <div class="table-wrapper">
-                        <table>
+                        <table class="others-table">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Keterangan</th>
+                                    <th>NO</th>
+                                    <th>NAMA</th>
+                                    <th>KETERANGAN</th>
                                 </tr>
                             </thead>
                             <tbody id="othersBody2">
-                                <tr class="loading"><td colspan="3">Memuat data...</td></tr>
+                                <tr><td colspan="3" style="padding: 20px; color: #94A3B8;">Memuat data...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -560,7 +522,9 @@
         <div class="footer">
             <div class="footer-time" id="footerTime">00:00:00</div>
             <div class="footer-text">
-                <div class="footer-marquee" id="footerMarquee"></div>
+                <div class="footer-marquee" id="footerMarquee">
+                    <span>Memuat pesan...</span>
+                </div>
             </div>
         </div>
     </div>
@@ -601,7 +565,8 @@
                         tbody.appendChild(tr);
                     });
                 } else {
-                    for (let i = 0; i < 5; i++) {
+                    // Show empty rows (minimal 15 rows)
+                    for (let i = 0; i < 15; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
                         tr.innerHTML = `
@@ -639,6 +604,7 @@
                     const firstHalf = data.slice(0, half);
                     const secondHalf = data.slice(half);
 
+                    // Fill first column
                     firstHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -649,15 +615,20 @@
                         tbody1.appendChild(tr);
                     });
 
-                    if (firstHalf.length === 0) {
-                        for (let i = 0; i < 3; i++) {
-                            const tr = document.createElement('tr');
-                            tr.className = 'empty-row';
-                            tr.innerHTML = `<td>${i + 1}</td><td>-</td><td>-</td>`;
-                            tbody1.appendChild(tr);
-                        }
+                    // Fill remaining rows with empty state
+                    const emptyRowsFirst = 5 - firstHalf.length;
+                    for (let i = 0; i < emptyRowsFirst; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `
+                            <td>${firstHalf.length + i + 1}</td>
+                            <td>-</td>
+                            <td>-</td>
+                        `;
+                        tbody1.appendChild(tr);
                     }
 
+                    // Fill second column
                     secondHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -668,16 +639,21 @@
                         tbody2.appendChild(tr);
                     });
 
-                    if (secondHalf.length === 0) {
-                        for (let i = 0; i < 3; i++) {
-                            const tr = document.createElement('tr');
-                            tr.className = 'empty-row';
-                            tr.innerHTML = `<td>${i + half + 1}</td><td>-</td><td>-</td>`;
-                            tbody2.appendChild(tr);
-                        }
+                    // Fill remaining rows with empty state
+                    const emptyRowsSecond = 5 - secondHalf.length;
+                    for (let i = 0; i < emptyRowsSecond; i++) {
+                        const tr = document.createElement('tr');
+                        tr.className = 'empty-row';
+                        tr.innerHTML = `
+                            <td>${half + secondHalf.length + i + 1}</td>
+                            <td>-</td>
+                            <td>-</td>
+                        `;
+                        tbody2.appendChild(tr);
                     }
                 } else {
-                    for (let i = 0; i < 3; i++) {
+                    // Show empty state for both columns
+                    for (let i = 0; i < 5; i++) {
                         const tr1 = document.createElement('tr');
                         tr1.className = 'empty-row';
                         tr1.innerHTML = `<td>${i + 1}</td><td>-</td><td>-</td>`;
@@ -740,9 +716,9 @@
             }
         }
 
-        // Update time and date
+        // Update date and time
         function updateDateTime() {
-            const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
             const monthsOfYear = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
             const now = new Date();
@@ -773,7 +749,7 @@
         setInterval(loadOutOffOffice, 30000); // Every 30 seconds
         setInterval(loadOthers, 30000);
         setInterval(loadMessages, 60000); // Every 1 minute
-        setInterval(updateDateTime, 1000);
+        setInterval(updateDateTime, 1000); // Every 1 second
 
         // Initial load
         init();
