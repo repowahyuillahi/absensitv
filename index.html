@@ -428,7 +428,6 @@
                 font-size: 10px;
             }
 
-            /* Mobile column adjustments */
             .out-section table th:nth-child(1),
             .out-section table td:nth-child(1) { width: 8%; }
             
@@ -445,7 +444,6 @@
             .out-section table td:nth-child(5) { width: 37%; }
         }
 
-        /* Tablet */
         @media (min-width: 769px) and (max-width: 1024px) {
             table th, table td {
                 font-size: 14px;
@@ -453,7 +451,6 @@
             }
         }
 
-        /* Landscape Mobile */
         @media (max-height: 500px) and (orientation: landscape) {
             .header {
                 padding: 8px 16px;
@@ -487,7 +484,7 @@
         <div class="header">
             <div class="date-display" id="dateDisplay">Kamis, 11 Desember 2025</div>
             <div class="logo-container">
-                <img src="logo.jpg" alt="Tjahaja Baru Logo" class="logo-img" id="logoImg">
+                <img src="logo.png" alt="Tjahaja Baru Logo" class="logo-img">
             </div>
         </div>
 
@@ -562,7 +559,7 @@
     </div>
 
     <script>
-        // **WEB APP URL**
+        // **GANTI DENGAN WEB APP URL ANDA**
         const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
 
         // Load Out Off Office data
@@ -577,12 +574,22 @@
 
                 if (result.status === 'success' && result.data.length > 0) {
                     result.data.forEach((item, index) => {
+                        // FORMAT JAM - fallback jika backend masih kirim timestamp
+                        let jamPergi = item.jam_pergi;
+                        
+                        if (jamPergi && (jamPergi.includes('T') || jamPergi.includes('-'))) {
+                            const date = new Date(jamPergi);
+                            const hours = date.getHours().toString().padStart(2, '0');
+                            const minutes = date.getMinutes().toString().padStart(2, '0');
+                            jamPergi = `${hours}:${minutes}`;
+                        }
+                        
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
                             <td>${index + 1}</td>
                             <td>${item.nama}</td>
                             <td>${item.perusahaan}</td>
-                            <td>${item.jam_pergi}</td>
+                            <td>${jamPergi}</td>
                             <td>${item.tujuan}</td>
                         `;
                         tbody.appendChild(tr);
