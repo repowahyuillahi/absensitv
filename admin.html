@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Admin Panel - Tjahaja Baru</title>
     <style>
         * {
@@ -13,36 +13,186 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
-        .container {
+        /* LOGIN PAGE */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            background: #041066;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .login-header img {
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .login-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .login-body {
+            padding: 30px;
+        }
+
+        .login-form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .login-form-group input:focus {
+            outline: none;
+            border-color: #041066;
+            box-shadow: 0 0 0 3px rgba(4,16,102,0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #041066;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-btn:hover {
+            background: #0520a8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(4,16,102,0.3);
+        }
+
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .login-alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .login-alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* ADMIN PAGE */
+        .admin-container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             overflow: hidden;
+            display: none;
         }
 
         .header {
-            background: linear-gradient(90deg, #041066 0%, #0520a8 100%);
+            background: #041066;
             color: white;
             padding: 30px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header h1 {
-            font-size: 32px;
+        .header-left h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header-left p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .user-info {
+            font-size: 14px;
             margin-bottom: 10px;
         }
 
-        .header p {
+        .logout-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 14px;
-            opacity: 0.9;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         .tabs {
@@ -101,7 +251,7 @@
             border: 2px solid #ddd;
             border-radius: 5px;
             font-size: 14px;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .form-group input:focus,
@@ -125,7 +275,7 @@
             font-weight: 500;
             font-size: 16px;
             transition: all 0.3s;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-primary {
@@ -276,15 +426,61 @@
             .tab.active {
                 border-bottom: 3px solid #041066;
             }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .header-right {
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- LOGIN PAGE -->
+    <div class="login-container" id="loginPage">
+        <div class="login-header">
+            <img src="logo.png" alt="Tjahaja Baru Logo">
+            <h1>Admin Panel</h1>
+            <p>Sistem Absensi & Informasi Digital</p>
+        </div>
+        <div class="login-body">
+            <div class="login-alert" id="loginAlert"></div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="login-form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" required placeholder="Masukkan username">
+                </div>
+                <div class="login-form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Masukkan password">
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">
+                    🔐 Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN PAGE -->
+    <div class="admin-container" id="adminPage">
         <div class="header">
-            <h1>🎛️ Admin Panel</h1>
-            <p>Sistem Absensi & Informasi Digital Tjahaja Baru</p>
+            <div class="header-left">
+                <h1>🎛️ Admin Panel</h1>
+                <p>Sistem Absensi & Informasi Digital Tjahaja Baru</p>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    Selamat datang, <strong id="userName">Admin</strong>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    🚪 Logout
+                </button>
+            </div>
         </div>
 
         <div class="tabs">
@@ -332,7 +528,7 @@
 
             <div class="table-container">
                 <h3 style="margin-top: 30px; margin-bottom: 15px;">Yang Belum Pulang Hari Ini</h3>
-                <table id="table-out-active">
+                <table>
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -381,7 +577,7 @@
 
             <div class="table-container">
                 <h3 style="margin-top: 30px; margin-bottom: 15px;">Data Cuti/Dinas Aktif</h3>
-                <table id="table-others-active">
+                <table>
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -425,7 +621,7 @@
 
             <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Out Off Office</h3>
             <div class="table-container">
-                <table id="table-riwayat-out">
+                <table>
                     <thead>
                         <tr>
                             <th>Tanggal</th>
@@ -445,7 +641,7 @@
 
             <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Others</h3>
             <div class="table-container">
-                <table id="table-riwayat-others">
+                <table>
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -465,12 +661,100 @@
     </div>
 
     <script>
-        // **WEB APP URL**
+        // **GANTI DENGAN WEB APP URL ANDA**
         const API_URL = 'https://script.google.com/macros/s/AKfycbzz13GWeXvFuYe9UMAUQDzm_p4a9ZAwpi252OXeVLfNZ2vUmOw8Y2_PItWFHcqd9xNNfw/exec';
+
+        // Check if already logged in
+        window.onload = function() {
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                const userData = JSON.parse(loggedInUser);
+                showAdminPage(userData);
+            }
+        };
+
+        // Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const loginAlert = document.getElementById('loginAlert');
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = '⏳ Memproses...';
+            loginAlert.style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_URL}?action=login`, {
+                    method: 'POST',
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    // Save to session
+                    sessionStorage.setItem('loggedInUser', JSON.stringify(result.data));
+                    
+                    // Show success
+                    loginAlert.className = 'login-alert success';
+                    loginAlert.textContent = '✅ Login berhasil! Memuat halaman...';
+                    loginAlert.style.display = 'block';
+                    
+                    // Redirect to admin
+                    setTimeout(() => {
+                        showAdminPage(result.data);
+                    }, 1000);
+                } else {
+                    loginAlert.className = 'login-alert error';
+                    loginAlert.textContent = '❌ ' + result.message;
+                    loginAlert.style.display = 'block';
+                }
+            } catch (error) {
+                loginAlert.className = 'login-alert error';
+                loginAlert.textContent = '❌ Terjadi kesalahan: ' + error.message;
+                loginAlert.style.display = 'block';
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = '🔐 Login';
+            }
+        }
+
+        // Show Admin Page
+        function showAdminPage(userData) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'block';
+            document.getElementById('userName').textContent = userData.nama;
+            
+            // Load initial data
+            loadActiveOut();
+            
+            // Set default dates
+            document.getElementById('out-tanggal').value = new Date().toISOString().split('T')[0];
+            document.getElementById('out-jam-pergi').value = new Date().toTimeString().slice(0,5);
+            document.getElementById('filter-tanggal').value = new Date().toISOString().split('T')[0];
+            
+            // Set display link
+            const currentUrl = window.location.href;
+            const displayUrl = currentUrl.replace('admin.html', 'index.html');
+            document.getElementById('link-display').href = displayUrl;
+            document.getElementById('link-display').textContent = displayUrl;
+        }
+
+        // Handle Logout
+        function handleLogout() {
+            if (confirm('Yakin ingin logout?')) {
+                sessionStorage.removeItem('loggedInUser');
+                document.getElementById('adminPage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'block';
+                document.getElementById('loginForm').reset();
+            }
+        }
 
         // Switch Tab
         function switchTab(tabName) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -478,11 +762,9 @@
                 btn.classList.remove('active');
             });
 
-            // Show selected tab
             document.getElementById('tab-' + tabName).classList.add('active');
             event.target.classList.add('active');
 
-            // Load data for specific tabs
             if (tabName === 'out') {
                 loadActiveOut();
             } else if (tabName === 'others') {
@@ -529,6 +811,8 @@
                 if (result.status === 'success') {
                     showAlert('alert-out', '✅ Data berhasil disimpan!', 'success');
                     document.getElementById('form-out').reset();
+                    document.getElementById('out-tanggal').value = new Date().toISOString().split('T')[0];
+                    document.getElementById('out-jam-pergi').value = new Date().toTimeString().slice(0,5);
                     loadActiveOut();
                 } else {
                     showAlert('alert-out', '❌ Error: ' + result.message, 'error');
@@ -692,7 +976,7 @@
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <input type="text" class="pesan-input" value="${value}" 
                            placeholder="Masukkan teks pesan yang akan ditampilkan..."
-                           style="flex: 1;">
+                           style="flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px;">
                     <button class="btn btn-danger btn-small" onclick="this.parentElement.parentElement.remove()">🗑️ Hapus</button>
                 </div>
             `;
@@ -803,20 +1087,6 @@
                 console.error('Error loading riwayat others:', error);
             }
         }
-
-        // Set default date to today
-        document.getElementById('out-tanggal').value = new Date().toISOString().split('T')[0];
-        document.getElementById('out-jam-pergi').value = new Date().toTimeString().slice(0,5);
-        document.getElementById('filter-tanggal').value = new Date().toISOString().split('T')[0];
-
-        // Set display link
-        const currentUrl = window.location.href;
-        const displayUrl = currentUrl.replace('admin.html', 'index.html');
-        document.getElementById('link-display').href = displayUrl;
-        document.getElementById('link-display').textContent = displayUrl;
-
-        // Initial load
-        loadActiveOut();
     </script>
 </body>
 </html>
