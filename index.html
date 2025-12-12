@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Display Absensi Tjahaja Baru</title>
+    <title>Display Absensi - Tjahaja Baru</title>
     <style>
         * {
             margin: 0;
@@ -12,9 +12,19 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #041066;
+            --secondary: #FFA500;
+            --bg-main: #F8F9FC;
+            --bg-card: #FFFFFF;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-main);
             overflow: hidden;
             height: 100vh;
         }
@@ -27,21 +37,21 @@
             background: white;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(12px, 2vh, 20px) clamp(20px, 3vw, 40px);
-            background: #041066;
+            padding: clamp(16px, 2vh, 24px) clamp(24px, 3vw, 48px);
+            background: var(--primary);
             color: white;
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(4, 16, 102, 0.15);
             position: relative;
         }
 
         .date-display {
-            font-size: clamp(16px, 2.5vw, 28px);
+            font-size: clamp(18px, 2.5vw, 32px);
             font-weight: 600;
             color: white;
             letter-spacing: -0.3px;
@@ -50,42 +60,54 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
-        .logo-img {
-            height: clamp(50px, 6vh, 80px);
-            width: auto;
+        .logo-wrapper {
+            background: white;
+            width: clamp(60px, 7vh, 90px);
+            height: clamp(60px, 7vh, 90px);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
 
-        /* Status Indicator */
+        /* ===== STATUS INDICATOR ===== */
         .status-indicator {
             position: fixed;
-            bottom: clamp(70px, 8vh, 90px);
-            left: clamp(12px, 2vw, 24px);
+            bottom: clamp(80px, 9vh, 100px);
+            left: clamp(16px, 2vw, 24px);
             display: flex;
             align-items: center;
             gap: 8px;
             background: white;
-            padding: 6px 14px;
-            border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 8px 16px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             z-index: 1000;
-            font-size: clamp(10px, 1.1vw, 13px);
+            font-size: clamp(11px, 1.2vw, 14px);
             font-weight: 600;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: #dc3545;
+            background: #EF4444;
             animation: blink 2s infinite;
         }
 
         .status-dot.online {
-            background: #28a745;
+            background: #10B981;
             animation: pulse 2s infinite;
         }
 
@@ -96,42 +118,45 @@
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 0.8; }
         }
 
-        /* Main Content */
+        /* ===== MAIN CONTENT ===== */
         .content {
             flex: 1;
-            padding: clamp(12px, 2vh, 20px) clamp(12px, 2vw, 24px);
+            padding: clamp(16px, 2vh, 24px) clamp(16px, 2vw, 32px);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            gap: clamp(12px, 2vh, 20px);
+            gap: clamp(16px, 2vh, 24px);
         }
 
-        /* Section Title */
+        /* ===== SECTION ===== */
+        .section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+
         .section-title {
-            background: #041066;
+            background: var(--primary);
             color: white;
             text-align: center;
-            padding: clamp(10px, 1.8vh, 16px);
-            font-size: clamp(14px, 2vw, 22px);
-            font-weight: 600;
-            border-radius: 10px 10px 0 0;
+            padding: clamp(12px, 2vh, 18px);
+            font-size: clamp(16px, 2.2vw, 26px);
+            font-weight: 700;
             letter-spacing: 0.5px;
         }
 
-        /* Out Section */
+        /* ===== OUT SECTION ===== */
         .out-section {
             flex: 1;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            overflow: hidden;
         }
 
         .table-wrapper {
@@ -141,7 +166,7 @@
             min-height: 0;
         }
 
-        /* TABLE FIXED LAYOUT */
+        /* ===== TABLE ===== */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -149,18 +174,20 @@
         }
 
         table thead {
-            background: #041066;
+            background: var(--primary);
             color: white;
             display: table;
             width: 100%;
             table-layout: fixed;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         table tbody {
             display: block;
             overflow-y: auto;
             overflow-x: hidden;
-            max-height: calc(100vh - 400px);
         }
 
         table tbody tr {
@@ -170,12 +197,12 @@
         }
 
         table th {
-            padding: clamp(12px, 2vh, 18px) clamp(10px, 1.5vw, 16px);
+            padding: clamp(14px, 2.2vh, 20px) clamp(12px, 1.8vw, 18px);
             font-weight: 600;
             text-align: center;
-            font-size: clamp(12px, 1.7vw, 18px);
+            font-size: clamp(13px, 1.8vw, 20px);
             border-right: 1px solid rgba(255,255,255,0.2);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             white-space: nowrap;
         }
 
@@ -185,28 +212,28 @@
 
         table tbody tr {
             transition: background 0.2s ease;
-            border-bottom: 1px solid #e8edf7;
+            border-bottom: 1px solid var(--border);
         }
 
         table tbody tr:nth-child(odd) {
-            background: #f8f9fc;
+            background: #F8F9FC;
         }
 
         table tbody tr:nth-child(even) {
-            background: #ffffff;
+            background: #FFFFFF;
         }
 
         table tbody tr:hover {
-            background: #e8eef7 !important;
+            background: #E8EEF7 !important;
         }
 
         table td {
-            padding: clamp(12px, 2vh, 16px) clamp(10px, 1.5vw, 14px);
+            padding: clamp(14px, 2.2vh, 18px) clamp(12px, 1.8vw, 16px);
             text-align: center;
-            font-size: clamp(11px, 1.6vw, 17px);
-            color: #2d3748;
+            font-size: clamp(12px, 1.7vw, 18px);
+            color: var(--text-primary);
             font-weight: 500;
-            border-right: 1px solid #e8edf7;
+            border-right: 1px solid var(--border);
             word-wrap: break-word;
             overflow: hidden;
         }
@@ -217,88 +244,68 @@
 
         table td:first-child {
             font-weight: 700;
-            color: #041066;
+            color: var(--primary);
         }
 
-        /* COLUMN WIDTHS - SERAGAM antara thead dan tbody */
+        /* Column Widths - Out Off Office */
         .out-section table th:nth-child(1),
-        .out-section table td:nth-child(1) {
-            width: 5%;
-        }
+        .out-section table td:nth-child(1) { width: 5%; }
 
         .out-section table th:nth-child(2),
-        .out-section table td:nth-child(2) {
-            width: 23%;
-        }
+        .out-section table td:nth-child(2) { width: 23%; }
 
         .out-section table th:nth-child(3),
-        .out-section table td:nth-child(3) {
-            width: 23%;
-        }
+        .out-section table td:nth-child(3) { width: 23%; }
 
         .out-section table th:nth-child(4),
-        .out-section table td:nth-child(4) {
-            width: 12%;
-        }
+        .out-section table td:nth-child(4) { width: 12%; }
 
         .out-section table th:nth-child(5),
-        .out-section table td:nth-child(5) {
-            width: 37%;
-        }
+        .out-section table td:nth-child(5) { width: 37%; }
 
-        /* Others Section */
+        /* ===== OTHERS SECTION ===== */
         .others-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: clamp(12px, 2vw, 24px);
+            gap: clamp(16px, 2vw, 24px);
             flex: 0 0 auto;
-            max-height: 28vh;
+            max-height: 30vh;
         }
 
         .others-section {
-            background: white;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            overflow: hidden;
         }
 
-        /* COLUMN WIDTHS - Others tables */
+        /* Column Widths - Others */
         .others-section table th:nth-child(1),
-        .others-section table td:nth-child(1) {
-            width: 12%;
-        }
+        .others-section table td:nth-child(1) { width: 12%; }
 
         .others-section table th:nth-child(2),
-        .others-section table td:nth-child(2) {
-            width: 40%;
-        }
+        .others-section table td:nth-child(2) { width: 40%; }
 
         .others-section table th:nth-child(3),
-        .others-section table td:nth-child(3) {
-            width: 48%;
-        }
+        .others-section table td:nth-child(3) { width: 48%; }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         .footer {
             flex-shrink: 0;
-            background: #041066;
+            background: var(--primary);
             color: white;
             display: flex;
             align-items: center;
-            padding: clamp(10px, 1.8vh, 16px) clamp(16px, 2vw, 24px);
-            height: clamp(48px, 6.5vh, 65px);
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            padding: clamp(12px, 2vh, 18px) clamp(20px, 2vw, 32px);
+            height: clamp(56px, 7vh, 70px);
+            box-shadow: 0 -4px 12px rgba(4, 16, 102, 0.1);
         }
 
         .footer-time {
-            min-width: clamp(200px, 28vw, 420px);
+            min-width: clamp(220px, 30vw, 450px);
             font-weight: 700;
-            font-size: clamp(12px, 1.7vw, 19px);
-            color: #ffd700;
-            padding-right: clamp(12px, 2vw, 24px);
+            font-size: clamp(13px, 1.8vw, 20px);
+            color: var(--secondary);
+            padding-right: clamp(16px, 2vw, 24px);
             border-right: 2px solid rgba(255,255,255,0.3);
             white-space: nowrap;
             overflow: hidden;
@@ -309,14 +316,14 @@
         .footer-text {
             flex: 1;
             overflow: hidden;
-            margin-left: clamp(12px, 2vw, 24px);
+            margin-left: clamp(16px, 2vw, 24px);
         }
 
         .footer-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 35s linear infinite;
-            font-size: clamp(12px, 1.7vw, 19px);
+            animation: marquee 40s linear infinite;
+            font-size: clamp(13px, 1.8vw, 20px);
             font-weight: 500;
             letter-spacing: 0.3px;
         }
@@ -328,79 +335,81 @@
 
         .footer-marquee span {
             display: inline-block;
-            margin-right: clamp(50px, 10vw, 120px);
+            margin-right: clamp(60px, 12vw, 150px);
         }
 
-        /* Empty state */
+        /* ===== EMPTY STATE ===== */
         .empty-row td {
-            color: #cbd5e0 !important;
+            color: var(--text-secondary) !important;
             font-style: italic;
+            opacity: 0.6;
         }
 
-        /* Loading */
         .loading {
             text-align: center;
-            padding: clamp(12px, 2vh, 24px);
-            color: #718096;
+            padding: clamp(16px, 3vh, 32px);
+            color: var(--text-secondary);
             font-style: italic;
-            font-size: clamp(11px, 1.5vw, 15px);
+            font-size: clamp(12px, 1.6vw, 16px);
         }
 
-        /* Scrollbar Custom */
+        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: var(--bg-main);
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #041066;
-            border-radius: 5px;
+            background: var(--primary);
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background: #030d4d;
         }
 
-        /* Mobile Adjustments */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
                 text-align: center;
-                padding: 12px 16px;
+                padding: 16px 20px;
             }
 
             .date-display {
-                font-size: 16px;
+                font-size: 18px;
             }
 
-            .logo-img {
-                height: 50px;
+            .logo-wrapper {
+                width: 60px;
+                height: 60px;
             }
 
             .others-container {
                 grid-template-columns: 1fr;
-                max-height: 22vh;
+                max-height: 24vh;
             }
 
             .footer {
                 flex-direction: column;
                 height: auto;
-                padding: 10px 12px;
-                gap: 8px;
+                padding: 12px 16px;
+                gap: 10px;
             }
 
             .footer-time {
                 border-right: none;
                 border-bottom: 1px solid rgba(255,255,255,0.3);
-                padding-bottom: 8px;
+                padding-bottom: 10px;
                 min-width: 100%;
                 text-align: center;
-                font-size: 13px;
+                font-size: 14px;
             }
 
             .footer-text {
@@ -409,88 +418,85 @@
             }
 
             .footer-marquee {
-                font-size: 13px;
-            }
-
-            table th, table td {
-                padding: 10px 6px;
-                font-size: 11px;
-            }
-
-            .section-title {
-                font-size: 15px;
+                font-size: 14px;
             }
 
             .status-indicator {
-                bottom: 60px;
-                left: 8px;
-                padding: 5px 10px;
-                font-size: 10px;
+                bottom: 70px;
+                left: 12px;
+                padding: 6px 12px;
+                font-size: 11px;
             }
 
             .out-section table th:nth-child(1),
             .out-section table td:nth-child(1) { width: 8%; }
             
             .out-section table th:nth-child(2),
-            .out-section table td:nth-child(2) { width: 20%; }
+            .out-section table td:nth-child(2) { width: 21%; }
             
             .out-section table th:nth-child(3),
-            .out-section table td:nth-child(3) { width: 20%; }
+            .out-section table td:nth-child(3) { width: 21%; }
             
             .out-section table th:nth-child(4),
-            .out-section table td:nth-child(4) { width: 15%; }
+            .out-section table td:nth-child(4) { width: 14%; }
             
             .out-section table th:nth-child(5),
-            .out-section table td:nth-child(5) { width: 37%; }
+            .out-section table td:nth-child(5) { width: 36%; }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
             table th, table td {
-                font-size: 14px;
-                padding: 12px 10px;
+                font-size: 15px;
+                padding: 14px 12px;
             }
         }
 
         @media (max-height: 500px) and (orientation: landscape) {
             .header {
-                padding: 8px 16px;
+                padding: 10px 20px;
             }
 
             .section-title {
-                padding: 6px;
-                font-size: 13px;
+                padding: 8px;
+                font-size: 14px;
             }
 
             table th, table td {
-                padding: 6px 8px;
-                font-size: 11px;
+                padding: 8px 10px;
+                font-size: 12px;
             }
 
             .footer {
-                padding: 6px 12px;
-                height: 40px;
+                padding: 8px 16px;
+                height: 48px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- STATUS INDICATOR -->
     <div class="status-indicator">
         <div class="status-dot" id="statusDot"></div>
         <span id="statusText">Offline</span>
     </div>
 
+    <!-- MAIN CONTAINER -->
     <div class="container">
+        <!-- HEADER -->
         <div class="header">
-            <div class="date-display" id="dateDisplay">Kamis, 11 Desember 2025</div>
+            <div class="date-display" id="dateDisplay">Jumat, 12 Desember 2025</div>
             <div class="logo-container">
-                <img src="logo.png" alt="Tjahaja Baru Logo" class="logo-img">
+                <div class="logo-wrapper">
+                    <img src="assets/img/logo.png" alt="Tjahaja Baru Logo">
+                </div>
             </div>
         </div>
 
+        <!-- CONTENT -->
         <div class="content">
-            <!-- Out Off Office Table -->
-            <div class="out-section">
+            <!-- OUT OFF OFFICE TABLE -->
+            <div class="out-section section">
                 <div class="section-title">Out Off Office</div>
                 <div class="table-wrapper">
                     <table>
@@ -510,9 +516,9 @@
                 </div>
             </div>
 
-            <!-- Others Section -->
+            <!-- OTHERS SECTION -->
             <div class="others-container">
-                <div class="others-section">
+                <div class="others-section section">
                     <div class="section-title">Others</div>
                     <div class="table-wrapper">
                         <table>
@@ -530,7 +536,7 @@
                     </div>
                 </div>
 
-                <div class="others-section">
+                <div class="others-section section">
                     <div class="section-title">Others</div>
                     <div class="table-wrapper">
                         <table>
@@ -550,6 +556,7 @@
             </div>
         </div>
 
+        <!-- FOOTER -->
         <div class="footer">
             <div class="footer-time" id="footerTime">00:00:00</div>
             <div class="footer-text">
@@ -574,7 +581,6 @@
 
                 if (result.status === 'success' && result.data.length > 0) {
                     result.data.forEach((item, index) => {
-                        // FORMAT JAM - fallback jika backend masih kirim timestamp
                         let jamPergi = item.jam_pergi;
                         
                         if (jamPergi && (jamPergi.includes('T') || jamPergi.includes('-'))) {
@@ -595,7 +601,6 @@
                         tbody.appendChild(tr);
                     });
                 } else {
-                    // Empty state
                     for (let i = 0; i < 5; i++) {
                         const tr = document.createElement('tr');
                         tr.className = 'empty-row';
@@ -634,7 +639,6 @@
                     const firstHalf = data.slice(0, half);
                     const secondHalf = data.slice(half);
 
-                    // First column
                     firstHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -654,7 +658,6 @@
                         }
                     }
 
-                    // Second column
                     secondHalf.forEach((item, index) => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -674,7 +677,6 @@
                         }
                     }
                 } else {
-                    // Empty state
                     for (let i = 0; i < 3; i++) {
                         const tr1 = document.createElement('tr');
                         tr1.className = 'empty-row';
@@ -730,11 +732,11 @@
             if (isOnline) {
                 dot.classList.add('online');
                 text.textContent = 'Online';
-                text.style.color = '#28a745';
+                text.style.color = '#10B981';
             } else {
                 dot.classList.remove('online');
                 text.textContent = 'Offline';
-                text.style.color = '#dc3545';
+                text.style.color = '#EF4444';
             }
         }
 
